@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Quản lý Thực đơn - Trắng Sang Trọng</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#10b981", // Emerald 500
+                        "secondary": "#0ea5e9", // Sky 500
+                        "background-light": "#f8fafc", // Very light slate/gray for main bg
+                        "background-white": "#ffffff",
+                        "text-dark": "#0f172a", // Slate 900
+                        "text-subtle": "#64748b", // Slate 500
+                        "border-light": "#e2e8f0", // Slate 200
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    boxShadow: {
+                        'subtle': '0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02)',
+                        'card': '0 0 0 1px rgba(226, 232, 240, 0.6), 0 4px 6px -1px rgba(0, 0, 0, 0.05)',
+                        'card-hover': '0 0 0 1px rgba(226, 232, 240, 0.8), 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+    </style>
+</head>
+<body class="bg-background-light text-text-dark font-display overflow-hidden antialiased">
+<div class="flex h-screen w-full">
+<aside class="hidden md:flex flex-col w-72 border-r border-border-light bg-background-white flex-shrink-0 z-10">
+<div class="flex flex-col h-full justify-between p-6">
+<div class="flex flex-col gap-8">
+<div class="flex items-center gap-4 px-2">
+<div class="relative group cursor-pointer">
+<span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-20 group-hover:opacity-40 transition-opacity"></span>
+<div class="relative bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12 ring-4 ring-white shadow-md transition-transform group-hover:scale-105" data-alt="Logo quán bar bãi biển hoàng hôn" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDcZ7HwHUwvEvPiNcnLy3sZgKyazd-ZruzO6oieq6O-Ehdm3mjDvchsVUBZhJ6VE0HV_ZBjnT64x56DkymU_SW9lXlbcyEpmDBp6kzVjJj3wc6cEnHBaunHHEKUVyhQyUF1I7cjYuM9hRclZtsaHAvA_Rtbub1qE8T6-Nav4udjTdiXFFDPD1F3b7Pv0m_hsNqHAEiozdbGw9hb1DfZAYzIj8BdRUXtf0GzUBMAmQ-MY5o_y8aHvm95yhgjyOa2r1cmMteEM2O7URY");'>
+</div>
+</div>
+<div class="flex flex-col">
+<h1 class="text-lg font-extrabold leading-tight text-text-dark tracking-tight">Airwave <span class="text-primary font-normal">Club</span></h1>
+<p class="text-text-subtle text-xs font-medium uppercase tracking-wider">Phú Quốc, VN</p>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 text-text-subtle hover:text-primary transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">grid_view</span>
+<p class="text-sm font-semibold">Tổng quan</p>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-white shadow-lg shadow-primary/20 transition-all duration-200 hover:shadow-primary/30 hover:-translate-y-0.5" href="#">
+<span class="material-symbols-outlined fill">restaurant_menu</span>
+<p class="text-sm font-bold">Thực đơn</p>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 text-text-subtle hover:text-primary transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">receipt_long</span>
+<p class="text-sm font-semibold">Đơn hàng</p>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 text-text-subtle hover:text-primary transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">group</span>
+<p class="text-sm font-semibold">Nhân viên</p>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 text-text-subtle hover:text-primary transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">settings</span>
+<p class="text-sm font-semibold">Cài đặt</p>
+</a>
+</div>
+</div>
+<div class="flex items-center gap-3 px-4 py-4 border-t border-border-light bg-slate-50/50 rounded-xl">
+<div class="size-10 rounded-full bg-gradient-to-tr from-slate-200 to-slate-100 flex items-center justify-center text-slate-600 font-bold text-sm shadow-inner ring-2 ring-white">AD</div>
+<div class="flex flex-col">
+<p class="text-sm font-bold text-text-dark">Admin</p>
+<p class="text-xs text-text-subtle font-medium">Quản lý cấp cao</p>
+</div>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col h-full overflow-y-auto bg-background-light relative">
+<div class="md:hidden flex items-center justify-between p-4 border-b border-border-light bg-background-white sticky top-0 z-20 shadow-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">restaurant_menu</span>
+<span class="font-bold text-lg text-text-dark">Thực đơn</span>
+</div>
+<button class="p-2 rounded-lg bg-slate-50 text-text-dark hover:bg-slate-100">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+<div class="layout-content-container flex flex-col max-w-[1600px] mx-auto w-full p-6 md:p-10 gap-8">
+<div class="flex flex-wrap justify-between items-end gap-6">
+<div class="flex flex-col gap-3">
+<h1 class="text-3xl md:text-4xl font-black leading-tight tracking-tight text-text-dark">Quản lý Thực đơn</h1>
+<p class="text-text-subtle text-base font-medium max-w-2xl">Quản lý danh sách món ăn, thức uống và cập nhật trạng thái phục vụ tại Airwave Beach Club.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto items-center">
+<label class="flex items-center h-12 bg-white rounded-xl px-4 border border-slate-200 focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/10 transition-all flex-1 md:min-w-[320px] shadow-sm">
+<span class="material-symbols-outlined text-slate-400 mr-2">search</span>
+<input class="bg-transparent border-none text-sm w-full h-full text-text-dark focus:ring-0 placeholder:text-slate-400 font-medium" placeholder="Tìm kiếm món ăn, đồ uống..." type="text"/>
+</label>
+<button class="flex items-center justify-center gap-2 h-12 px-6 bg-primary hover:bg-emerald-600 active:bg-emerald-700 text-white text-sm font-bold rounded-xl transition-all whitespace-nowrap shadow-lg shadow-emerald-500/20 transform hover:-translate-y-0.5">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span>Thêm món mới</span>
+</button>
+</div>
+</div>
+<div class="flex gap-3 overflow-x-auto pb-4 scrollbar-hide -mx-6 px-6 md:mx-0 md:px-0">
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-text-dark text-white px-5 shadow-md transition-transform active:scale-95 border border-transparent">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+<span class="text-sm font-bold">Tất cả</span>
+</button>
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white hover:bg-slate-50 border border-slate-200 px-5 transition-all shadow-sm hover:shadow-md active:scale-95 group">
+<span class="material-symbols-outlined text-[18px] text-slate-500 group-hover:text-primary transition-colors">local_bar</span>
+<span class="text-sm font-semibold text-slate-600 group-hover:text-text-dark">Cocktails</span>
+</button>
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white hover:bg-slate-50 border border-slate-200 px-5 transition-all shadow-sm hover:shadow-md active:scale-95 group">
+<span class="material-symbols-outlined text-[18px] text-slate-500 group-hover:text-primary transition-colors">water_drop</span>
+<span class="text-sm font-semibold text-slate-600 group-hover:text-text-dark">Mocktails</span>
+</button>
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white hover:bg-slate-50 border border-slate-200 px-5 transition-all shadow-sm hover:shadow-md active:scale-95 group">
+<span class="material-symbols-outlined text-[18px] text-slate-500 group-hover:text-primary transition-colors">restaurant</span>
+<span class="text-sm font-semibold text-slate-600 group-hover:text-text-dark">Đồ ăn</span>
+</button>
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white hover:bg-slate-50 border border-slate-200 px-5 transition-all shadow-sm hover:shadow-md active:scale-95 group">
+<span class="material-symbols-outlined text-[18px] text-slate-500 group-hover:text-primary transition-colors">set_meal</span>
+<span class="text-sm font-semibold text-slate-600 group-hover:text-text-dark">Hải sản</span>
+</button>
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white hover:bg-slate-50 border border-slate-200 px-5 transition-all shadow-sm hover:shadow-md active:scale-95 group">
+<span class="material-symbols-outlined text-[18px] text-slate-500 group-hover:text-primary transition-colors">cookie</span>
+<span class="text-sm font-semibold text-slate-600 group-hover:text-text-dark">Đồ ăn nhẹ</span>
+</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 pb-10">
+<div class="group relative flex flex-col bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300">
+<div class="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="Ly cocktail màu cam rực rỡ với lát cam trang trí trên miệng ly" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDWsuoDuHB5NJbr6vJMqvF-as8CfC9DvGiI5OFaDJQRAKqF7doHlmQsPVAonFJdnTmwdx7lf8IpxsemEkyO-NvStuH3nNQTzWqp7F6kAsF8hZNlCdx4OYaZI7cj-KtIjwur772osY4Fo4YMFvZ6VBWzxXfz6mt_ebucLXy0dPFUw6KVek-2SJ-tEUN08KjCbOiouSq5cI9DMyy7l_tNi2gZG7YVSa3BUe7kSQCQwZ-SWuV8FjH1w_iEhBtawm2EMA2sawaPqty5gJc");'>
+</div>
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
+<div class="absolute top-3 right-3">
+<span class="inline-flex items-center rounded-full bg-white/90 px-2.5 py-1 text-xs font-bold text-emerald-600 shadow-sm backdrop-blur-sm border border-emerald-100">
+<span class="mr-1.5 h-2 w-2 rounded-full bg-emerald-500"></span>
+                                Còn hàng
+                            </span>
+</div>
+</div>
+<div class="flex flex-col p-5 gap-3 flex-1">
+<div class="flex justify-between items-start gap-2">
+<h3 class="text-lg font-bold text-text-dark line-clamp-1 group-hover:text-primary transition-colors" title="Sunset Paradise">Sunset Paradise</h3>
+<p class="text-primary font-bold text-lg whitespace-nowrap bg-emerald-50 px-2 rounded-lg">150k</p>
+</div>
+<p class="text-sm text-text-subtle line-clamp-2 leading-relaxed">Rượu rum Phú Quốc pha trộn với nước ép dứa tươi và một chút siro lựu đỏ.</p>
+<div class="mt-auto pt-4 border-t border-slate-100 flex justify-between items-center">
+<span class="text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md uppercase tracking-wide">Cocktails</span>
+<div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 translate-y-2 group-hover:translate-y-0">
+<button class="size-8 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-emerald-50 rounded-full transition-colors border border-transparent hover:border-emerald-100" title="Chỉnh sửa">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="size-8 flex items-center justify-center text-slate-400 hover:text-rose-500 hover:bg-rose-50 rounded-full transition-colors border border-transparent hover:border-rose-100" title="Xóa">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="group relative flex flex-col bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300">
+<div class="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="Món hải sản nướng trên đĩa trắng với rau thơm" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBLqyf0hiAhkSOEBI4HBKIa5wBvcGNkiH469Old3qRZf9j_HimLKrkF2djgZGFJ3JnV7bj_JJSbgrIavggg1VW7ZWhMC9ny65Pp4U4v82nfkfBKTPWZniEHxPH9f7K4Ifm6Syn_HDW1UHJzFkU2kueFOnNC8TdyZ5qfObn70p_kzQh6OoMmyGCyGxLBTcL6G0u2TlUWgGT3-MZykXRSGa9_9_3nDWT6A59XrxOUuDMIRhM7P8mNy4IkVIUeUzAVexV2IVpjZmQjrJI");'>
+</div>
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
+<div class="absolute top-3 right-3">
+<span class="inline-flex items-center rounded-full bg-white/90 px-2.5 py-1 text-xs font-bold text-emerald-600 shadow-sm backdrop-blur-sm border border-emerald-100">
+<span class="mr-1.5 h-2 w-2 rounded-full bg-emerald-500"></span>
+                                Còn hàng
+                            </span>
+</div>
+</div>
+<div class="flex flex-col p-5 gap-3 flex-1">
+<div class="flex justify-between items-start gap-2">
+<h3 class="text-lg font-bold text-text-dark line-clamp-1 group-hover:text-primary transition-colors" title="Mực Nướng Muối Ớt">Mực Nướng Muối Ớt</h3>
+<p class="text-primary font-bold text-lg whitespace-nowrap bg-emerald-50 px-2 rounded-lg">220k</p>
+</div>
+<p class="text-sm text-text-subtle line-clamp-2 leading-relaxed">Mực tươi Phú Quốc nướng than hoa, ăn kèm sốt muối ớt xanh đặc biệt.</p>
+<div class="mt-auto pt-4 border-t border-slate-100 flex justify-between items-center">
+<span class="text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md uppercase tracking-wide">Hải sản</span>
+<div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 translate-y-2 group-hover:translate-y-0">
+<button class="size-8 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-emerald-50 rounded-full transition-colors border border-transparent hover:border-emerald-100">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="size-8 flex items-center justify-center text-slate-400 hover:text-rose-500 hover:bg-rose-50 rounded-full transition-colors border border-transparent hover:border-rose-100">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="group relative flex flex-col bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300">
+<div class="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0" data-alt="Ly nước ép trái cây màu xanh dương mát lạnh" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCfX5Jq4qcPry01s2C-Aft5gEt23DPGM08uSLSlhaiNHJZ9IbO3fYyyE_z65aq-GcdyoFIHkOsHkkzOjgftwJ4228Da3YmTO14pq7Be3HgozPdHq-NmH9TFnVkSGrl7PfisYtUsZZRQ4lRk5fUK2gLBl_bDhZ869RPoUPXBlAV26bBkg48yo7lIoMwA7Y6yQloDHQEtC22yChXRXhvFtAZ1BNsjh8BaXssuALXxu7cXoIA9TbYkCVsoartEsnfjusMCdFzzuYaM9sY");'>
+</div>
+<div class="absolute inset-0 bg-white/10 group-hover:bg-transparent transition-colors duration-300"></div>
+<div class="absolute top-3 right-3">
+<span class="inline-flex items-center rounded-full bg-white/90 px-2.5 py-1 text-xs font-bold text-rose-600 shadow-sm backdrop-blur-sm border border-rose-100">
+<span class="mr-1.5 h-2 w-2 rounded-full bg-rose-500"></span>
+                                Hết hàng
+                            </span>
+</div>
+</div>
+<div class="flex flex-col p-5 gap-3 flex-1">
+<div class="flex justify-between items-start gap-2">
+<h3 class="text-lg font-bold text-slate-400 group-hover:text-primary transition-colors" title="Blue Ocean Mojito">Blue Ocean Mojito</h3>
+<p class="text-slate-400 font-bold text-lg whitespace-nowrap bg-slate-50 px-2 rounded-lg decoration-slice">135k</p>
+</div>
+<p class="text-sm text-text-subtle line-clamp-2 leading-relaxed">Hương vị bạc hà mát lạnh kết hợp với Curacao xanh, mang lại cảm giác biển cả.</p>
+<div class="mt-auto pt-4 border-t border-slate-100 flex justify-between items-center">
+<span class="text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md uppercase tracking-wide">Cocktails</span>
+<div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 translate-y-2 group-hover:translate-y-0">
+<button class="size-8 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-emerald-50 rounded-full transition-colors border border-transparent hover:border-emerald-100">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="size-8 flex items-center justify-center text-slate-400 hover:text-rose-500 hover:bg-rose-50 rounded-full transition-colors border border-transparent hover:border-rose-100">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="group relative flex flex-col bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300">
+<div class="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="Đĩa gỏi cuốn tôm thịt tươi ngon" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDJA98lB63i7oJyF-b-6NXXxnnaFcft9yBcomfa29BR-iYWlTK5wbTCXhPK2VfkYKQMwH1FY96y_HtkOwYXML903zV_BHc9LDkkr5glUF-CQMabsQnVwH52lCMTUKfGxdtai6_nz6qVEgBFMiazBssBat8vYQu0yH8Ap-0wEV7Z8loWRqty6_5o5H7XNa4x3Bs5MdnLSguqi-q-drxQ5dEwkxf0a9OFgZkS5eNr_JYq3tKXqjAZKtO372Viujly0AjiIMLNcxiyjR8");'>
+</div>
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
+<div class="absolute top-3 right-3">
+<span class="inline-flex items-center rounded-full bg-white/90 px-2.5 py-1 text-xs font-bold text-emerald-600 shadow-sm backdrop-blur-sm border border-emerald-100">
+<span class="mr-1.5 h-2 w-2 rounded-full bg-emerald-500"></span>
+                                Còn hàng
+                            </span>
+</div>
+</div>
+<div class="flex flex-col p-5 gap-3 flex-1">
+<div class="flex justify-between items-start gap-2">
+<h3 class="text-lg font-bold text-text-dark line-clamp-1 group-hover:text-primary transition-colors" title="Gỏi Cuốn Tôm">Gỏi Cuốn Tôm</h3>
+<p class="text-primary font-bold text-lg whitespace-nowrap bg-emerald-50 px-2 rounded-lg">95k</p>
+</div>
+<p class="text-sm text-text-subtle line-clamp-2 leading-relaxed">Món khai vị nhẹ nhàng với tôm tươi, bún và rau sống, chấm sốt đậu phộng.</p>
+<div class="mt-auto pt-4 border-t border-slate-100 flex justify-between items-center">
+<span class="text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md uppercase tracking-wide">Đồ ăn nhẹ</span>
+<div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 translate-y-2 group-hover:translate-y-0">
+<button class="size-8 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-emerald-50 rounded-full transition-colors border border-transparent hover:border-emerald-100">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="size-8 flex items-center justify-center text-slate-400 hover:text-rose-500 hover:bg-rose-50 rounded-full transition-colors border border-transparent hover:border-rose-100">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="group relative flex flex-col bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300">
+<div class="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="Ly cocktail dừa trang trí đẹp mắt" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC_m51_e-335bBP0fOxAQJ-T2oh31Rp98mqg9vR2dcGit2beTl8uxrVr0vfS8QVUQNJNbF5Grvvvt2WhvjKm6JJLdXXEfOogEVBPFMXQMnGxgclEGyDAej-uhgS6Ifw6TKAMO_Nk8UFEXXiYOIt1FIr7FLOgEBpLiicpkLVKgkrG9rZs8vqmnuUckzwozPHln6IzpA66W2gd7ONQWgeLQGqfS6lIrBz45aW7tVq4oQlmYVoWNXQHBLeqLtQpDIbiorSDlEstOFs8D8");'>
+</div>
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
+<div class="absolute top-3 right-3">
+<span class="inline-flex items-center rounded-full bg-white/90 px-2.5 py-1 text-xs font-bold text-emerald-600 shadow-sm backdrop-blur-sm border border-emerald-100">
+<span class="mr-1.5 h-2 w-2 rounded-full bg-emerald-500"></span>
+                                Còn hàng
+                            </span>
+</div>
+</div>
+<div class="flex flex-col p-5 gap-3 flex-1">
+<div class="flex justify-between items-start gap-2">
+<h3 class="text-lg font-bold text-text-dark line-clamp-1 group-hover:text-primary transition-colors" title="Coco Loco">Coco Loco</h3>
+<p class="text-primary font-bold text-lg whitespace-nowrap bg-emerald-50 px-2 rounded-lg">140k</p>
+</div>
+<p class="text-sm text-text-subtle line-clamp-2 leading-relaxed">Dừa tươi nguyên trái pha với rượu Malibu và kem dừa béo ngậy.</p>
+<div class="mt-auto pt-4 border-t border-slate-100 flex justify-between items-center">
+<span class="text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md uppercase tracking-wide">Cocktails</span>
+<div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 translate-y-2 group-hover:translate-y-0">
+<button class="size-8 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-emerald-50 rounded-full transition-colors border border-transparent hover:border-emerald-100">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="size-8 flex items-center justify-center text-slate-400 hover:text-rose-500 hover:bg-rose-50 rounded-full transition-colors border border-transparent hover:border-rose-100">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="group flex flex-col items-center justify-center bg-white rounded-2xl border-2 border-dashed border-slate-200 hover:border-primary/50 transition-all duration-300 min-h-[360px] gap-6 hover:shadow-subtle hover:bg-slate-50">
+<div class="size-20 rounded-full bg-slate-50 group-hover:bg-white flex items-center justify-center group-hover:scale-110 shadow-sm group-hover:shadow-md transition-all duration-300 ring-1 ring-slate-100">
+<span class="material-symbols-outlined text-4xl text-slate-300 group-hover:text-primary transition-colors">add</span>
+</div>
+<div class="text-center px-6">
+<p class="text-lg font-bold text-slate-800 group-hover:text-primary transition-colors">Thêm món mới</p>
+<p class="text-sm text-slate-400 mt-2">Tạo món ăn hoặc đồ uống mới vào thực đơn</p>
+</div>
+</button>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

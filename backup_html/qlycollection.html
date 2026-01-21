@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Quản lý Bộ sưu tập ảnh - Airwave Beach Club</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    "primary": "#10b981", // Emerald 500
+                    "primary-hover": "#059669", // Emerald 600
+                    "secondary": "#84cc16", // Lime 500
+                    "background-light": "#ffffff", // Pure White
+                    "surface-light": "#f8fafc", // Slate 50
+                    "border-light": "#e2e8f0", // Slate 200
+                },
+                fontFamily: {
+                    "display": ["Inter", "Noto Sans", "sans-serif"]
+                },
+                borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                animation: {
+                    'float': 'float 3s ease-in-out infinite',
+                    'spin-slow': 'spin 8s linear infinite',
+                },
+                keyframes: {
+                    float: {
+                        '0%, 100%': { transform: 'translateY(0)' },
+                        '50%': { transform: 'translateY(-5px)' },
+                    }
+                }
+            },
+        },
+    }
+</script>
+<style>::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+    }
+    .material-symbols-outlined {
+        vertical-align: middle;
+        font-size: 24px;
+        font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;}
+    .icon-sm {
+        font-size: 20px;
+    }
+    .icon-filled {
+        font-variation-settings: 'FILL' 1;
+    }
+</style>
+</head>
+<body class="bg-white text-slate-800 font-display overflow-hidden antialiased">
+<div class="flex h-screen w-full">
+<aside class="w-[280px] hidden md:flex flex-col border-r border-slate-100 bg-white shrink-0 h-full overflow-y-auto z-30">
+<div class="flex flex-col gap-6 p-6 min-h-full">
+<div class="flex gap-4 items-center group cursor-pointer select-none">
+<div class="relative">
+<div class="absolute -inset-2 bg-gradient-to-tr from-primary/40 to-secondary/40 rounded-full blur-md opacity-0 group-hover:opacity-100 transition duration-700 animate-pulse"></div>
+<div class="relative bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12 shadow-sm ring-1 ring-slate-100 group-hover:ring-primary/30 transition-all duration-500 group-hover:animate-float" data-alt="Airwave Beach Club Logo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD6OCWR_13vVcFtPKovp7wqAl89wNhu7GItlNm6wueKWIzYrvgwA1mSp3B1eB4Pb2_cgZfZPYY-4p_kB8vmQ5QcLWnav0WoIWlOhWFi_xK1VRtj-PVjoA16icEjZqkXRPz8x58bz-Z0k1lCLNRI1SMoSGxDZkBrjkvDFcVO4gLMLznOi4fYqAVN0m18XyAyMY0M9IeDzocUTPCF0_Rri598EDuQGv9bsrRx2EDrTitYV8GJUeTneVkOMv0OEq0XVIlpUzv9Dya1sUY");'>
+</div>
+</div>
+<div class="flex flex-col justify-center">
+<h1 class="text-slate-900 text-lg font-bold leading-tight tracking-tight group-hover:text-primary transition-colors duration-300">Airwave Beach Club</h1>
+<p class="text-slate-400 text-xs font-medium uppercase tracking-wider mt-0.5">Admin Panel</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-primary transition-all duration-300 group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">dashboard</span>
+<p class="text-sm font-medium">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-primary transition-all duration-300 group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">shopping_bag</span>
+<p class="text-sm font-medium">Đơn hàng</p>
+</a>
+<a class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-primary transition-all duration-300 group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">restaurant_menu</span>
+<p class="text-sm font-medium">Thực đơn</p>
+</a>
+<a class="flex items-center gap-3 px-4 py-3.5 rounded-xl bg-gradient-to-r from-primary/10 to-transparent border-l-4 border-primary text-primary" href="#">
+<span class="material-symbols-outlined icon-filled">photo_library</span>
+<p class="text-sm font-bold">Thư viện ảnh</p>
+</a>
+<a class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-primary transition-all duration-300 group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">settings</span>
+<p class="text-sm font-medium">Cài đặt</p>
+</a>
+</nav>
+</div>
+</aside>
+<div class="flex-1 flex flex-col h-full overflow-hidden relative bg-white">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-slate-100 bg-white/80 backdrop-blur-md px-8 py-4 shrink-0 z-20 sticky top-0">
+<div class="flex items-center gap-8 w-full max-w-2xl">
+<div class="flex items-center gap-2 text-slate-900 md:hidden">
+<span class="material-symbols-outlined cursor-pointer">menu</span>
+</div>
+<div class="hidden md:flex items-center gap-4 text-slate-900">
+<h2 class="text-xl font-bold tracking-tight text-slate-800">Quản lý Nội dung</h2>
+</div>
+<label class="hidden md:flex flex-col min-w-64 h-11 flex-1">
+<div class="flex w-full flex-1 items-center rounded-xl h-full bg-slate-50 border border-transparent focus-within:bg-white focus-within:border-primary/30 focus-within:ring-4 focus-within:ring-primary/5 transition-all duration-300">
+<div class="text-slate-400 flex items-center justify-center pl-4">
+<span class="material-symbols-outlined icon-sm">search</span>
+</div>
+<input class="flex w-full min-w-0 flex-1 resize-none overflow-hidden bg-transparent border-none text-slate-800 focus:ring-0 placeholder:text-slate-400 px-3 text-sm" placeholder="Tìm kiếm ảnh, album..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex items-center gap-5">
+<button class="relative flex items-center justify-center rounded-full size-10 text-slate-400 hover:bg-slate-50 hover:text-primary transition duration-300">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border-2 border-white"></span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 cursor-pointer ring-2 ring-slate-100 hover:ring-primary transition duration-300 shadow-sm" data-alt="Admin user profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBh8KG8nKxmIJEkwJXRwxrPZP2m0fhfPZN7d5otalxTErHuGvvBpQcGsx2V9eU7ZRq1aKojsK2Y0Ent2NPMnJQGuENghNGTQ91P5V_al374csnjzfVDTcrNvtTwuM994xsWplxIsAZkFOBzUkXTkXHndVsTd5SQzD1wg-iejc-Hl1035B7lhvMQa4wtaz-8JfQJBZ0iQUYbOs6C5gMmAPfOjrVKN9kOxjUHbnT_h7hYXmUpWFhiq78wPpRNbvpHPWCowOB8wYnMxIs");'></div>
+</div>
+</header>
+<main class="flex-1 overflow-y-auto p-6 md:p-10 scroll-smooth bg-white">
+<div class="max-w-[1400px] mx-auto flex flex-col gap-8">
+<div class="flex flex-wrap items-center gap-2 text-sm font-medium">
+<a class="text-slate-400 hover:text-primary transition-colors" href="#">Dashboard</a>
+<span class="text-slate-300">/</span>
+<a class="text-slate-400 hover:text-primary transition-colors" href="#">Nội dung</a>
+<span class="text-slate-300">/</span>
+<span class="text-slate-800">Thư viện ảnh</span>
+</div>
+<div class="flex flex-wrap justify-between items-end gap-6">
+<div class="flex flex-col gap-2">
+<h1 class="text-slate-900 text-3xl md:text-4xl font-extrabold tracking-tight">Bộ sưu tập ảnh</h1>
+<p class="text-slate-500 text-base font-normal max-w-2xl">Quản lý toàn bộ hình ảnh hiển thị trên website chính của Airwave Beach Club.</p>
+</div>
+<button class="flex items-center justify-center gap-2 rounded-xl h-11 px-6 bg-primary hover:bg-primary-hover text-white text-sm font-bold shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 transition-all duration-300">
+<span class="material-symbols-outlined icon-sm">cloud_upload</span>
+<span>Tải ảnh mới</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="flex flex-col gap-2 rounded-2xl p-6 border border-slate-100 bg-white shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.1)] transition-shadow duration-300">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="bg-primary/5 p-2.5 rounded-xl text-primary ring-1 ring-primary/10">
+<span class="material-symbols-outlined">image</span>
+</div>
+<p class="text-slate-500 text-sm font-semibold">Tổng số ảnh</p>
+</div>
+<span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">+12%</span>
+</div>
+<p class="text-slate-900 text-3xl font-bold mt-2">42</p>
+</div>
+<div class="flex flex-col gap-2 rounded-2xl p-6 border border-slate-100 bg-white shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.1)] transition-shadow duration-300">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="bg-secondary/5 p-2.5 rounded-xl text-secondary ring-1 ring-secondary/10">
+<span class="material-symbols-outlined">hard_drive</span>
+</div>
+<p class="text-slate-500 text-sm font-semibold">Dung lượng</p>
+</div>
+</div>
+<p class="text-slate-900 text-3xl font-bold mt-2">120<span class="text-lg text-slate-400 font-medium ml-1">MB</span></p>
+</div>
+<div class="flex flex-col gap-2 rounded-2xl p-6 border border-slate-100 bg-white shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.1)] transition-shadow duration-300">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="bg-teal-500/5 p-2.5 rounded-xl text-teal-500 ring-1 ring-teal-500/10">
+<span class="material-symbols-outlined">visibility</span>
+</div>
+<p class="text-slate-500 text-sm font-semibold">Lượt xem</p>
+</div>
+<span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">High</span>
+</div>
+<p class="text-slate-900 text-3xl font-bold mt-2">1.2K</p>
+</div>
+</div>
+<div class="group relative flex flex-col items-center justify-center w-full h-56 border border-dashed border-slate-300 rounded-2xl bg-slate-50 hover:bg-slate-100 hover:border-primary/50 transition-all duration-300 cursor-pointer">
+<div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none"></div>
+<div class="flex flex-col items-center gap-4 z-10 transition-transform duration-300 group-hover:-translate-y-1">
+<div class="p-4 bg-white rounded-full shadow-sm ring-1 ring-slate-200 group-hover:ring-primary/30 group-hover:shadow-md transition-all">
+<span class="material-symbols-outlined text-primary text-4xl">cloud_upload</span>
+</div>
+<div class="text-center space-y-1">
+<p class="text-slate-900 text-lg font-semibold group-hover:text-primary transition-colors">Kéo thả ảnh vào đây</p>
+<p class="text-slate-500 text-sm">hoặc nhấn để chọn file từ máy tính</p>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-4 py-2 sticky top-20 bg-white/95 backdrop-blur z-10 border-b border-slate-50 pb-4">
+<div class="flex items-center gap-1 bg-slate-50 p-1 rounded-xl border border-slate-100">
+<button class="px-4 py-2 bg-white text-slate-900 text-sm font-semibold rounded-lg shadow-sm border border-slate-100">Tất cả</button>
+<button class="px-4 py-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 text-sm font-medium rounded-lg transition-all">Đã ẩn</button>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<button class="flex items-center gap-2 text-slate-600 text-sm font-semibold hover:text-primary transition">
+<span>Mới nhất</span>
+<span class="material-symbols-outlined icon-sm">sort</span>
+</button>
+</div>
+<div class="h-5 w-px bg-slate-200"></div>
+<div class="flex gap-1">
+<button class="p-2 text-slate-900 bg-slate-100 rounded-lg hover:bg-slate-200 transition">
+<span class="material-symbols-outlined icon-sm">grid_view</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-slate-900 transition">
+<span class="material-symbols-outlined icon-sm">view_list</span>
+</button>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 pb-12">
+<div class="group relative aspect-[4/5] rounded-2xl overflow-hidden bg-slate-100 border border-slate-100 hover:border-primary/30 transition-all cursor-pointer shadow-sm hover:shadow-xl hover:shadow-slate-200/50 hover:-translate-y-1 duration-300">
+<div class="absolute top-3 right-3 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-x-2 group-hover:translate-x-0">
+<div class="bg-white/90 backdrop-blur-md rounded-lg p-2 cursor-grab active:cursor-grabbing text-slate-700 shadow-sm hover:text-primary">
+<span class="material-symbols-outlined icon-sm">drag_indicator</span>
+</div>
+</div>
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Cocktail on a wooden table at sunset" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtBcuUJoEnKnWzaTBpmMhb3gHTSqNKSopL1hqwAIxd-AW7uUlB6KAOjHEy-WoJicCUVGwGbPN7O9maA90gt33EZY3DlhD8o_EFOUCHztZy8pCyInAHMhVMEKSGz14YCovCEP37mY0zQGsZHXPymsx5gLUB11PI1b1DmZ9LIprK-mzLSiIW7cbu8-yoPilwXB95uptFgyJN2xAkBOaBdJkc7nQfbaqlYs1y-15CyZwAr3yHbfII4CjZ99_u7wILJ16ignaMRqyGpfc"/>
+<div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">
+<p class="text-white text-xs font-medium truncate mb-3">cocktail_sunset_01.jpg</p>
+<div class="flex gap-2">
+<button class="flex-1 bg-white text-slate-900 hover:bg-slate-100 py-2 rounded-lg text-xs font-bold transition shadow-sm">Sửa</button>
+<button class="bg-white/20 hover:bg-white/30 backdrop-blur-md text-white p-2 rounded-lg transition border border-white/20">
+<span class="material-symbols-outlined icon-sm">delete</span>
+</button>
+</div>
+</div>
+</div>
+<div class="group relative aspect-[4/5] rounded-2xl overflow-hidden bg-slate-100 border border-slate-100 hover:border-primary/30 transition-all cursor-pointer shadow-sm hover:shadow-xl hover:shadow-slate-200/50 hover:-translate-y-1 duration-300">
+<div class="absolute top-3 right-3 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-x-2 group-hover:translate-x-0">
+<div class="bg-white/90 backdrop-blur-md rounded-lg p-2 cursor-grab active:cursor-grabbing text-slate-700 shadow-sm hover:text-primary">
+<span class="material-symbols-outlined icon-sm">drag_indicator</span>
+</div>
+</div>
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Crowd enjoying party at night beach bar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaodsi_GU8KbpbLA6DMZJWIHB1AiSSK0ENP0LCNJOzrvSmgzt5-zgQYMNLoMRI8n7h8ZuKoy0x0ugMYOekKi3Mw6QrEYgIs-w-0EgGzmfy44HeaRiHuOt56IrJC9Q1sfk5gWFr00AkkMCNG0wke2PKm13q8E45xWYsbZM8cjfH5O8xkgzkbpJachtnfuzY2biSZh9iO1KeTrGgW-8JfTaEwKNYJUyTDppB1-2D09ppgzVTsutjSHVOTSP5BLLUZw47Ew-968mNdec"/>
+<div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">
+<p class="text-white text-xs font-medium truncate mb-3">party_night_crowd.jpg</p>
+<div class="flex gap-2">
+<button class="flex-1 bg-white text-slate-900 hover:bg-slate-100 py-2 rounded-lg text-xs font-bold transition shadow-sm">Sửa</button>
+<button class="bg-white/20 hover:bg-white/30 backdrop-blur-md text-white p-2 rounded-lg transition border border-white/20">
+<span class="material-symbols-outlined icon-sm">delete</span>
+</button>
+</div>
+</div>
+</div>
+<div class="group relative aspect-[4/5] rounded-2xl overflow-hidden bg-slate-100 border border-slate-100 hover:border-primary/30 transition-all cursor-pointer shadow-sm hover:shadow-xl hover:shadow-slate-200/50 hover:-translate-y-1 duration-300">
+<div class="absolute top-3 right-3 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-x-2 group-hover:translate-x-0">
+<div class="bg-white/90 backdrop-blur-md rounded-lg p-2 cursor-grab active:cursor-grabbing text-slate-700 shadow-sm hover:text-primary">
+<span class="material-symbols-outlined icon-sm">drag_indicator</span>
+</div>
+</div>
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Palm trees silhouette during sunset on beach" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoVgdiBvV_J17Yj0g4CexT61M3aL9LQLDC9pkE0ZPitIsn6kjxw2v4cHbMk2UlbCL8KdBA9HM_taaLMyfeDS2v6WiTZkgq7H1ov4qpT0OZScL7wzlHX2zaPK3st6CmKedaIc8BSa7YFczXMgo4_DxCrDt1kIdKRou7xsZrzhNUE2nbU3vrTjtD1GDh1ovvc1fR9JCu2CMhQz7q63Ri6yEZEnL9pnJ31zTHTKFVxt1GBhHB87WOhkf10Mv295cJL_kWbAVr_WHoVys"/>
+<div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">
+<p class="text-white text-xs font-medium truncate mb-3">sunset_view_palms.jpg</p>
+<div class="flex gap-2">
+<button class="flex-1 bg-white text-slate-900 hover:bg-slate-100 py-2 rounded-lg text-xs font-bold transition shadow-sm">Sửa</button>
+<button class="bg-white/20 hover:bg-white/30 backdrop-blur-md text-white p-2 rounded-lg transition border border-white/20">
+<span class="material-symbols-outlined icon-sm">delete</span>
+</button>
+</div>
+</div>
+</div>
+<div class="group relative aspect-[4/5] rounded-2xl overflow-hidden bg-slate-100 border border-slate-100 hover:border-primary/30 transition-all cursor-pointer shadow-sm hover:shadow-xl hover:shadow-slate-200/50 hover:-translate-y-1 duration-300">
+<div class="absolute top-3 right-3 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-x-2 group-hover:translate-x-0">
+<div class="bg-white/90 backdrop-blur-md rounded-lg p-2 cursor-grab active:cursor-grabbing text-slate-700 shadow-sm hover:text-primary">
+<span class="material-symbols-outlined icon-sm">drag_indicator</span>
+</div>
+</div>
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Relaxing beach lounge chairs" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB99r2I0RxeYp2bPV5fApHtO3-QrfdCGmA_yD15yKtA2AoAcEHW1I-dPT2mBNsJF1dl2Mny0dUruf2lxptHNNsOtXQRjfDg5VVIjMGOq3Sg2dYMr9qf3m8sbFJY8bXjuxN8bN-FaBMp5uwwiZYUoUp7l_Q8_9Fqe_5D3EcOojS2PVSuTA6NZ3IzKMHyHILX9Y46SQzciLbxOST8CXeohY05P8EUNbHpd1uJwdPesBZBzwFqX9dDkRzoSfXu7n_bVRiyOzmgP4loZ4I"/>
+<div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">
+<p class="text-white text-xs font-medium truncate mb-3">lounge_area.jpg</p>
+<div class="flex gap-2">
+<button class="flex-1 bg-white text-slate-900 hover:bg-slate-100 py-2 rounded-lg text-xs font-bold transition shadow-sm">Sửa</button>
+<button class="bg-white/20 hover:bg-white/30 backdrop-blur-md text-white p-2 rounded-lg transition border border-white/20">
+<span class="material-symbols-outlined icon-sm">delete</span>
+</button>
+</div>
+</div>
+</div>
+<div class="group relative aspect-[4/5] rounded-2xl overflow-hidden bg-slate-100 border border-slate-100 hover:border-primary/30 transition-all cursor-pointer shadow-sm hover:shadow-xl hover:shadow-slate-200/50 hover:-translate-y-1 duration-300">
+<div class="absolute top-3 right-3 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-x-2 group-hover:translate-x-0">
+<div class="bg-white/90 backdrop-blur-md rounded-lg p-2 cursor-grab active:cursor-grabbing text-slate-700 shadow-sm hover:text-primary">
+<span class="material-symbols-outlined icon-sm">drag_indicator</span>
+</div>
+</div>
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Hotel pool area with ocean view" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbtmBg__Xnf7De2jmcfyVsv5R6bYF9_DVKVCn4P0auSN28IyQjkvURqw_vMRTOjnYi-MCTfHdsAJDoY5wsi_EYp3F3pXF6paL0L65xRxForPsni38-DKIaQA4fJ8iB_ixwF7xkDkYbYTTzZ3zgD-aj3IyyujiXhST3qS_UI3YkxZLgW-GzO2hDu-dDCG_BfYVm6G0U-DupWTd8olky97KRi_IR4ThsnIgBUOWyiKb2D8aTfI7yuaFElN85Zt8fpeW4TEqwUrvsFb4"/>
+<div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">
+<p class="text-white text-xs font-medium truncate mb-3">pool_overview.jpg</p>
+<div class="flex gap-2">
+<button class="flex-1 bg-white text-slate-900 hover:bg-slate-100 py-2 rounded-lg text-xs font-bold transition shadow-sm">Sửa</button>
+<button class="bg-white/20 hover:bg-white/30 backdrop-blur-md text-white p-2 rounded-lg transition border border-white/20">
+<span class="material-symbols-outlined icon-sm">delete</span>
+</button>
+</div>
+</div>
+</div>
+<div class="group relative aspect-[4/5] rounded-2xl overflow-hidden bg-slate-100 border border-slate-100 opacity-75 hover:opacity-100 transition-all cursor-pointer shadow-sm hover:shadow-xl hover:shadow-slate-200/50 hover:-translate-y-1 duration-300">
+<div class="absolute top-3 left-3 z-20">
+<div class="bg-yellow-500/90 backdrop-blur-md rounded-lg px-2 py-1 text-white shadow-sm">
+<span class="text-[10px] font-bold uppercase tracking-wider">Hidden</span>
+</div>
+</div>
+<div class="absolute top-3 right-3 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-x-2 group-hover:translate-x-0">
+<div class="bg-white/90 backdrop-blur-md rounded-lg p-2 cursor-grab active:cursor-grabbing text-slate-700 shadow-sm hover:text-primary">
+<span class="material-symbols-outlined icon-sm">drag_indicator</span>
+</div>
+</div>
+<img class="w-full h-full object-cover transition-transform duration-700 grayscale group-hover:grayscale-0 group-hover:scale-110" data-alt="Interior of the bar with wooden furniture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXxdxKOKubPubCzzKHk_eL2sGL4azgwpg98ttssbLlMnJ2PbgiIZYJliyQmvgHhnNBsFmDA9pGlZdZ79mhTo_bCMwMMa84X75DvUSDr4JQDk5anndugHojeZg-eaFPSiVdPs9d20z2S4u6JjK23x5fWT9tXddIJnJ2wWEdgKkjlVHKff2N1Ew9lCM0NUHHfiCIjxF-76_mcnvGrNgjmh_jLKtP3siijeHctlRTh1bw4ghRAbDQZymneX5wFxz8pwBEwxF0WRpMW3Y"/>
+<div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">
+<p class="text-white text-xs font-medium truncate mb-3">bar_interior_old.jpg</p>
+<div class="flex gap-2">
+<button class="flex-1 bg-white text-slate-900 hover:bg-slate-100 py-2 rounded-lg text-xs font-bold transition shadow-sm">Sửa</button>
+<button class="bg-white/20 hover:bg-white/30 backdrop-blur-md text-white p-2 rounded-lg transition border border-white/20">
+<span class="material-symbols-outlined icon-sm">delete</span>
+</button>
+</div>
+</div>
+</div>
+<div class="group relative aspect-[4/5] rounded-2xl overflow-hidden bg-slate-100 border border-slate-100 hover:border-primary/30 transition-all cursor-pointer shadow-sm hover:shadow-xl hover:shadow-slate-200/50 hover:-translate-y-1 duration-300">
+<div class="absolute top-3 right-3 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-x-2 group-hover:translate-x-0">
+<div class="bg-white/90 backdrop-blur-md rounded-lg p-2 cursor-grab active:cursor-grabbing text-slate-700 shadow-sm hover:text-primary">
+<span class="material-symbols-outlined icon-sm">drag_indicator</span>
+</div>
+</div>
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Two colorful drinks on a table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMDVW2i4W8bsrlQBoN79sbTtwf33IqSS0bvQnH88QJ0gUZ0vOF8FvDbdjTIiX8Pc7aEB1dChvhvvAEZ90cWQp295Kh_P5fE-78-zGJLktZrhVZCqeSAkuL8jbdoigMUNzPIXPCkVvdyLtLzRY90v29sFaUTjv8NNAIqVgf8J2tVibceJ1_UOEIYAdOW22W_G2mpsjPWX7XfJEe3nrjvrPGp62jRwQ2aEf-nlCALvRe-lHmr_zNkRqvR1Nr5t_ZJGcWskWYpyFRI54"/>
+<div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">
+<p class="text-white text-xs font-medium truncate mb-3">menu_specials_2024.jpg</p>
+<div class="flex gap-2">
+<button class="flex-1 bg-white text-slate-900 hover:bg-slate-100 py-2 rounded-lg text-xs font-bold transition shadow-sm">Sửa</button>
+<button class="bg-white/20 hover:bg-white/30 backdrop-blur-md text-white p-2 rounded-lg transition border border-white/20">
+<span class="material-symbols-outlined icon-sm">delete</span>
+</button>
+</div>
+</div>
+</div>
+<div class="group relative aspect-[4/5] rounded-2xl overflow-hidden bg-slate-100 border border-slate-100 hover:border-primary/30 transition-all cursor-pointer shadow-sm hover:shadow-xl hover:shadow-slate-200/50 hover:-translate-y-1 duration-300">
+<div class="absolute top-3 right-3 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-x-2 group-hover:translate-x-0">
+<div class="bg-white/90 backdrop-blur-md rounded-lg p-2 cursor-grab active:cursor-grabbing text-slate-700 shadow-sm hover:text-primary">
+<span class="material-symbols-outlined icon-sm">drag_indicator</span>
+</div>
+</div>
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="DJ playing music at beach club" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArCQJQkL9n6c-Eqd8tr00E3cCFIE2yLIfRsGDt_JObT3pJmPzIACXcGbdOi_dufX8V7i4McumcV31ujFNeV33kfP2nOJcOd5tBzLfyB5sdxsrTkl-GloH5lZwZT617H2bR2fMuE03xnuOjWr49IRedAmXU7bsiB2YzwH_zoFpDbJ_Vou7-WgsMdTEBNkdNSOCQwTSMm0hVxpOB9VyynjYWDCInl8egYqPQG3NXUFDpyX4bJie3D6a1woB2b2jVZtm1vvRNBB8PjxY"/>
+<div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">
+<p class="text-white text-xs font-medium truncate mb-3">dj_event_weekend.jpg</p>
+<div class="flex gap-2">
+<button class="flex-1 bg-white text-slate-900 hover:bg-slate-100 py-2 rounded-lg text-xs font-bold transition shadow-sm">Sửa</button>
+<button class="bg-white/20 hover:bg-white/30 backdrop-blur-md text-white p-2 rounded-lg transition border border-white/20">
+<span class="material-symbols-outlined icon-sm">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+
+</body></html>

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html class="dark" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sự kiện - Airwave Beach Club - Trắng Sang Trọng</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#16a34a", // Green 600
+                        "primary-hover": "#15803d", // Green 700
+                        "background-light": "#ffffff", // Pure White
+                        "background-dark": "#0f172a",
+                        "surface-dark": "#1e293b",
+                        "surface-light": "#ffffff",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                    animation: {
+                        'wave-pulse': 'wave-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                        'text-shimmer': 'text-shimmer 3s ease-in-out infinite alternate',
+                        'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        'wave-pulse': {
+                            '0%, 100%': { opacity: 1 },
+                            '50%': { opacity: .7, transform: 'scale(1.05)' },
+                        },
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-3px)' },
+                        },
+                        'text-shimmer': {
+                            '0%': { backgroundPosition: '0% 50%' },
+                            '100%': { backgroundPosition: '100% 50%' },
+                        },
+                        'fade-in-up': {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-900 font-display overflow-x-hidden transition-colors duration-300 antialiased selection:bg-green-100 selection:text-green-900">
+<div class="relative flex min-h-screen flex-col">
+<header class="sticky top-0 z-50 flex items-center justify-between border-b border-gray-100 bg-white/95 backdrop-blur-md px-6 py-4 lg:px-20 shadow-sm">
+<div class="flex items-center gap-4 group cursor-pointer">
+<div class="flex items-center justify-center size-10 rounded-full bg-green-50 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 animate-float shadow-inner">
+<span class="material-symbols-outlined text-2xl group-hover:animate-spin">local_bar</span>
+</div>
+<h2 class="text-2xl font-black leading-tight tracking-tight bg-gradient-to-r from-slate-900 via-primary to-slate-900 bg-[length:200%_auto] bg-clip-text text-transparent animate-text-shimmer">
+                Airwave Beach Club
+            </h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-900 text-sm font-bold hover:text-primary transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-full after:scale-x-100 after:bg-primary after:transition-transform after:duration-300" href="#">Sự kiện</a>
+<a class="text-slate-500 text-sm font-medium hover:text-primary transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-full after:scale-x-0 after:bg-primary after:transition-transform after:duration-300 hover:after:scale-x-100" href="#">Thực đơn</a>
+<a class="text-slate-500 text-sm font-medium hover:text-primary transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-full after:scale-x-0 after:bg-primary after:transition-transform after:duration-300 hover:after:scale-x-100" href="#">Thư viện ảnh</a>
+<a class="text-slate-500 text-sm font-medium hover:text-primary transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-full after:scale-x-0 after:bg-primary after:transition-transform after:duration-300 hover:after:scale-x-100" href="#">Về chúng tôi</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-primary hover:bg-green-700 transition-all hover:-translate-y-0.5 duration-300 text-white text-sm font-bold leading-normal tracking-wide shadow-lg shadow-green-500/20 active:scale-95 active:translate-y-0">
+<span class="truncate">Đặt Bàn Ngay</span>
+</button>
+<button class="md:hidden text-slate-900">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<main class="flex-1 bg-white">
+<div class="@container">
+<div class="relative flex min-h-[500px] flex-col items-center justify-center p-4 text-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-white"></div>
+<img alt="Phu Quoc beach party at night with lights and crowd" class="h-full w-full object-cover" data-alt="Phu Quoc beach party at night with lights and crowd" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIvey49gi6cMpdseC6v6pqH-zDVBPalI_sPawMtQFP9q2wId8LOdeDmj_RfuIagzGQgYDIYtZ2Og44FulQzkzlLbf4J-nZHq9ScF_TPY6vVR7BT35XqUlIxHGZTuLTWX_1HsTOeRPBsXEnAa3nrqM8NLCEff8RsIsiupQvQcD8-UpKkY8Zz0SUx2HEfIVs4FMSZlZdRfwuiKY5wgRA2wZwNEgo7OSufCpEAAjqU5Nux7Y-PCQIGnoA4WYuY6Oe9F1VwXzC_ob8tfg"/>
+</div>
+<div class="relative z-10 flex flex-col gap-6 max-w-[800px] animate-fade-in-up">
+<div class="inline-flex items-center justify-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mx-auto shadow-sm">
+<span class="material-symbols-outlined text-green-400 text-sm">water_drop</span>
+<span class="text-white text-xs font-bold uppercase tracking-widest">Nightlife Phú Quốc</span>
+</div>
+<h1 class="text-white text-5xl md:text-7xl font-black leading-tight tracking-tight drop-shadow-2xl">
+                        Nhịp Đập Của <br/><span class="text-green-400">Biển Xanh</span>
+</h1>
+<p class="text-slate-100 text-lg md:text-xl font-medium leading-relaxed max-w-2xl mx-auto drop-shadow-lg">
+                        Hòa mình vào làn gió biển mát lạnh, âm nhạc sôi động và những ly cocktail màu xanh ngọc bích tuyệt đẹp.
+                    </p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center mt-6">
+<button class="flex items-center justify-center h-12 px-8 rounded-full bg-primary text-white font-bold text-base hover:bg-white hover:text-primary transition-all duration-300 shadow-xl shadow-green-900/20 hover:-translate-y-1">
+                            Xem Lịch Sự Kiện
+                        </button>
+<button class="flex items-center justify-center h-12 px-8 rounded-full bg-white/20 backdrop-blur-md border border-white/40 text-white font-bold text-base hover:bg-white/30 transition-all duration-300 hover:-translate-y-1 group shadow-lg">
+<span class="material-symbols-outlined mr-2 group-hover:text-green-300 transition-colors">play_circle</span>
+                            Xem Video
+                        </button>
+</div>
+</div>
+</div>
+</div>
+<div class="px-4 md:px-10 lg:px-40 py-16 flex justify-center bg-white">
+<div class="w-full max-w-[1200px] flex flex-col gap-12">
+<div class="flex flex-col md:flex-row items-center justify-between gap-6">
+<h2 class="text-slate-900 text-3xl font-black tracking-tight relative pl-4 border-l-4 border-primary">Sự Kiện Sắp Tới</h2>
+<div class="flex gap-3 overflow-x-auto pb-2 hide-scrollbar w-full md:w-auto p-1">
+<button class="flex h-10 shrink-0 items-center justify-center px-6 rounded-full bg-primary text-white font-bold text-sm shadow-lg shadow-green-500/20 transition-all hover:scale-105 active:scale-95">
+                            Tất cả
+                        </button>
+<button class="flex h-10 shrink-0 items-center justify-center px-6 rounded-full bg-white text-slate-600 font-semibold text-sm hover:text-primary hover:border-primary border border-gray-200 transition-all hover:-translate-y-0.5 hover:shadow-md active:scale-95">
+                            Cuối tuần này
+                        </button>
+<button class="flex h-10 shrink-0 items-center justify-center px-6 rounded-full bg-white text-slate-600 font-semibold text-sm hover:text-primary hover:border-primary border border-gray-200 transition-all hover:-translate-y-0.5 hover:shadow-md active:scale-95">
+                            Nhạc sống
+                        </button>
+<button class="flex h-10 shrink-0 items-center justify-center px-6 rounded-full bg-white text-slate-600 font-semibold text-sm hover:text-primary hover:border-primary border border-gray-200 transition-all hover:-translate-y-0.5 hover:shadow-md active:scale-95">
+                            DJ Sets
+                        </button>
+<button class="flex h-10 shrink-0 items-center justify-center px-6 rounded-full bg-white text-slate-600 font-semibold text-sm hover:text-primary hover:border-primary border border-gray-200 transition-all hover:-translate-y-0.5 hover:shadow-md active:scale-95">
+                            Đặc biệt
+                        </button>
+</div>
+</div>
+<div class="relative overflow-hidden rounded-2xl bg-white shadow-[0_20px_50px_-12px_rgba(0,0,0,0.08)] border border-gray-100 group cursor-pointer transition-all duration-500 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.12)]">
+<div class="grid grid-cols-1 lg:grid-cols-2">
+<div class="h-[350px] lg:h-auto overflow-hidden relative">
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10 lg:hidden"></div>
+<div class="w-full h-full bg-cover bg-center transition-transform duration-1000 group-hover:scale-105" data-alt="Crowd dancing at a beach festival with colorful lights" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCIBFit2JifmoWaaZda_Vzdqtkbfxe933_67Bn10ByUi-g0hNBcmpDbWKuuutT7-du7ic93PphtvlrrKLq4SwME0KS-e7uY7XdFB6hDJlB7nD0sSXkLowwW4brAEmuBlMskj133A31uHfHJlcJzSFfycPOTUeVRSljOzHCswErv9A9_xXvgYqVzUV3lwib5IiEDz9XgYm0qnuIEjT14ifcuCrSn7BKt5sQ8zBdMS6QsAobWlH1NY9UqMV5ruoyqDEaenBZbfEwLdZg");'>
+</div>
+</div>
+<div class="flex flex-col justify-center p-8 lg:p-14 gap-8 relative bg-white">
+<div class="hidden lg:flex absolute top-10 right-10 flex-col items-center justify-center w-20 h-20 bg-white rounded-2xl border border-gray-100 shadow-xl group-hover:scale-110 transition-transform duration-300">
+<span class="text-primary text-xs font-bold uppercase tracking-wider">Tháng 10</span>
+<span class="text-slate-900 text-3xl font-black">24</span>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-2 text-primary font-bold text-sm tracking-widest uppercase">
+<span class="material-symbols-outlined text-lg">star</span>
+                                    Sự kiện nổi bật
+                                </div>
+<h3 class="text-slate-900 text-4xl md:text-5xl font-black leading-tight group-hover:text-primary transition-colors duration-300">
+                                    Tiệc Trăng Tròn: <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-green-400">Full Moon Party</span>
+</h3>
+<div class="flex flex-wrap items-center gap-6 text-slate-500 text-base mt-2 font-medium">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">calendar_today</span>
+                                        24/10/2023
+                                    </div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">schedule</span>
+                                        20:00 - 02:00
+                                    </div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">location_on</span>
+                                        Bãi biển chính
+                                    </div>
+</div>
+</div>
+<p class="text-slate-600 text-lg leading-relaxed border-l-2 border-gray-200 pl-4">
+                                Đêm hội lớn nhất tháng với không gian lung linh sắc xanh huyền ảo, các DJ quốc tế và ưu đãi bucket cocktail trên bãi cát trắng mịn.
+                            </p>
+<div class="flex flex-wrap gap-4 pt-4">
+<button class="flex items-center justify-center h-12 px-10 rounded-full bg-primary text-white font-bold text-base hover:bg-green-700 hover:text-white transition-all shadow-lg shadow-green-500/30 hover:-translate-y-1 active:scale-95">
+                                    Đặt Vé Ngay
+                                </button>
+<button class="flex items-center justify-center h-12 px-10 rounded-full border border-gray-200 bg-white text-slate-900 font-bold text-base hover:border-primary hover:text-primary transition-all hover:-translate-y-1 active:scale-95 shadow-sm">
+                                    Xem Chi Tiết
+                                </button>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="flex flex-col rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-300 group">
+<div class="relative h-64 overflow-hidden">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="DJ playing music at a sunset beach party" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDczMI9Dq3mQRw4NkDsB3VSfA1BrHXAfqBh9Kl1Z-77Q9Jdk8QQg-Qs8Xn-D6pxfiYKwTYXh560SgjxDzyPc3RRPGElUWhg6gtmLOeHc3gEZkVaDeTPXkoWRtVblLM7d22RC_AEYRFJ4VCEfsh-eM9DrCZO4xGlFA39bAmO75WtSDgPgfl_fofo0jLZkH4OJ78NrUlcSOyAD8ziE3E3M3hhvqR-_aEOe_PMRT1PKjsYNZyJthDWA_W1QGdKpPX3x4OfFvljWxanBkw");'>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60"></div>
+<div class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full border border-gray-100 shadow-md">
+<span class="text-slate-900 text-xs font-bold uppercase tracking-wider">DJ Set</span>
+</div>
+<div class="absolute bottom-4 left-4 text-white">
+<p class="font-bold text-sm bg-primary/90 inline-block px-2 py-0.5 rounded mb-1">Thứ Sáu, 23/10</p>
+</div>
+</div>
+<div class="flex flex-col flex-1 p-6 gap-4">
+<div>
+<h4 class="text-slate-900 text-xl font-black leading-tight group-hover:text-primary transition-colors mb-2">Sunset Chill: DJ Nam</h4>
+<div class="flex items-center gap-2 text-slate-500 text-sm font-medium">
+<span class="material-symbols-outlined text-[18px]">schedule</span> 17:00
+                                    <span class="mx-1">•</span>
+<span class="material-symbols-outlined text-[18px]">location_on</span> Pool Bar
+                                </div>
+</div>
+<p class="text-slate-600 text-sm line-clamp-2 leading-relaxed">
+                                Thưởng thức hoàng hôn tuyệt đẹp với những giai điệu Deep House nhẹ nhàng và menu cocktail Blue Ocean mua 1 tặng 1.
+                            </p>
+<div class="mt-auto pt-4 border-t border-gray-100">
+<button class="w-full py-2 rounded-lg text-slate-900 text-sm font-bold hover:text-primary flex items-center justify-between transition-colors group/btn">
+                                    Đặt Bàn
+                                    <span class="material-symbols-outlined text-lg group-hover/btn:translate-x-1 transition-transform text-gray-400 group-hover/btn:text-primary">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-300 group">
+<div class="relative h-64 overflow-hidden">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="Fire dancer performing on the beach at night" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA5q_bL553ebFqJ3WpSZeHVWPI5u8kMs_Fwz0Ixm5014V2LLlaCt32sj-ZOvlk01nkgEaJxnJTHjoSl7UQvhuMZkFeaLQx3zrhHJ8rZSkCq8uFw-72KfU8RhfdEeGiq2TJopOTbdZfpSWfXcF-HXpyD2Hc30qnVsLj48wWSj4EpnK-X3n9OFMMgF5U9LQlRphmZmYoI1s5E77jEXGCrnUgJNAhKOnPx0_e9QYSN6LSggjtvKGiceD2z5Vqpp6fRiSVAVuHVbLOGwaY");'>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60"></div>
+<div class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full border border-gray-100 shadow-md">
+<span class="text-slate-900 text-xs font-bold uppercase tracking-wider">Live Show</span>
+</div>
+<div class="absolute bottom-4 left-4 text-white">
+<p class="font-bold text-sm bg-primary/90 inline-block px-2 py-0.5 rounded mb-1">Chủ Nhật, 25/10</p>
+</div>
+</div>
+<div class="flex flex-col flex-1 p-6 gap-4">
+<div>
+<h4 class="text-slate-900 text-xl font-black leading-tight group-hover:text-primary transition-colors mb-2">Vũ Điệu Của Biển</h4>
+<div class="flex items-center gap-2 text-slate-500 text-sm font-medium">
+<span class="material-symbols-outlined text-[18px]">schedule</span> 19:30
+                                    <span class="mx-1">•</span>
+<span class="material-symbols-outlined text-[18px]">location_on</span> Bãi Biển
+                                </div>
+</div>
+<p class="text-slate-600 text-sm line-clamp-2 leading-relaxed">
+                                Màn trình diễn nghệ thuật kết hợp ánh sáng LED xanh dương độc đáo chỉ có tại Sunset Sanato.
+                            </p>
+<div class="mt-auto pt-4 border-t border-gray-100">
+<button class="w-full py-2 rounded-lg text-slate-900 text-sm font-bold hover:text-primary flex items-center justify-between transition-colors group/btn">
+                                    Đặt Bàn
+                                    <span class="material-symbols-outlined text-lg group-hover/btn:translate-x-1 transition-transform text-gray-400 group-hover/btn:text-primary">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-300 group">
+<div class="relative h-64 overflow-hidden">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="Group of ladies having cocktails at a bar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCpONyQaT7pGvjKkwST40IjxJ5vRoaucL-WLMIW11zL52IgTSM030MDZYdmHpVZbhhMXDB12viZHsjNxET2hi1XkYJm_lbgqsBxCn8O8cgN8Ku05W4eDKEzUOayl8C7dtt3QY7blTp0H1m_9xOdI6EhWXtCiPeU6D3iiQ9Zn7dWMQdwKmUsjZonHIT7sQgyu5sJj5oQwRZYV9s8MMkANyv0CwdA6H9PHOeegHztF464cQ4AVs8ylTN5HHZJIxhpeHDOgJE4vawMToc");'>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60"></div>
+<div class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full border border-gray-100 shadow-md">
+<span class="text-slate-900 text-xs font-bold uppercase tracking-wider">Promo</span>
+</div>
+<div class="absolute bottom-4 left-4 text-white">
+<p class="font-bold text-sm bg-primary/90 inline-block px-2 py-0.5 rounded mb-1">Thứ Ba, 27/10</p>
+</div>
+</div>
+<div class="flex flex-col flex-1 p-6 gap-4">
+<div>
+<h4 class="text-slate-900 text-xl font-black leading-tight group-hover:text-primary transition-colors mb-2">Ladies Night</h4>
+<div class="flex items-center gap-2 text-slate-500 text-sm font-medium">
+<span class="material-symbols-outlined text-[18px]">schedule</span> 18:00
+                                    <span class="mx-1">•</span>
+<span class="material-symbols-outlined text-[18px]">location_on</span> Main Bar
+                                </div>
+</div>
+<p class="text-slate-600 text-sm line-clamp-2 leading-relaxed">
+                                Miễn phí 1 ly cocktail Turquoise đặc biệt cho các quý cô. Nhạc Acoustic nhẹ nhàng lãng mạn bên bờ biển.
+                            </p>
+<div class="mt-auto pt-4 border-t border-gray-100">
+<button class="w-full py-2 rounded-lg text-slate-900 text-sm font-bold hover:text-primary flex items-center justify-between transition-colors group/btn">
+                                    Xem Chi Tiết
+                                    <span class="material-symbols-outlined text-lg group-hover/btn:translate-x-1 transition-transform text-gray-400 group-hover/btn:text-primary">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-300 group">
+<div class="relative h-64 overflow-hidden">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="Acoustic guitar performance on beach stage" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCVygkwN-yUeyCiPLM288VURWZQmDYD6KwVvFvAakAjAeRttaZdaD2wKYaNWeFLVUc_vETOinSomJnKoX_NdBDkiOUMcLDZRU3JXefOADNhMG8t1NfA9zDWW55LXrCNP8czN69YXPGr4vgeR8gBIeW0cceBPpL9MweCXlH9CXETwpE2kHzIOiTnboueXO91F4i59IPH_iB5oHG3OFwWC8ZyKvNvgyLorjDTn5nz9pSUfyLDRAokTHe4-eRud9bw8wpjICMTRRSqztU");'>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60"></div>
+<div class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full border border-gray-100 shadow-md">
+<span class="text-slate-900 text-xs font-bold uppercase tracking-wider">Acoustic</span>
+</div>
+<div class="absolute bottom-4 left-4 text-white">
+<p class="font-bold text-sm bg-primary/90 inline-block px-2 py-0.5 rounded mb-1">Thứ Tư, 28/10</p>
+</div>
+</div>
+<div class="flex flex-col flex-1 p-6 gap-4">
+<div>
+<h4 class="text-slate-900 text-xl font-black leading-tight group-hover:text-primary transition-colors mb-2">Giai Điệu Biển Khơi</h4>
+<div class="flex items-center gap-2 text-slate-500 text-sm font-medium">
+<span class="material-symbols-outlined text-[18px]">schedule</span> 19:00
+                                    <span class="mx-1">•</span>
+<span class="material-symbols-outlined text-[18px]">location_on</span> Sân Khấu
+                                </div>
+</div>
+<p class="text-slate-600 text-sm line-clamp-2 leading-relaxed">
+                                Ban nhạc địa phương mang đến những ca khúc Pop Ballad ngọt ngào trong không gian lãng mạn.
+                            </p>
+<div class="mt-auto pt-4 border-t border-gray-100">
+<button class="w-full py-2 rounded-lg text-slate-900 text-sm font-bold hover:text-primary flex items-center justify-between transition-colors group/btn">
+                                    Đặt Bàn
+                                    <span class="material-symbols-outlined text-lg group-hover/btn:translate-x-1 transition-transform text-gray-400 group-hover/btn:text-primary">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-300 group">
+<div class="relative h-64 overflow-hidden">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="Colorful tropical cocktails on a bar table" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBVdeheg4ILTOczwwj21zKRVsvKbo8L5iLSQNGhoHoA6NoriHwIGyypUdDyLv6SBczAr0yGVg7chslMl39VafMAifu1IGpbQ9It3v93NidBVbyF7mYK1eB2TOEO_dpS2c8a1v5WgKoG_beTgGobpKv0pe3-rjcHz8O7_ECR3NcrYklEFhXu9Wxofp4s9eO9Z0i_xhZNn9Xk6oo_nSOjEbpeIiORYFzVHimG-TCMy9Fbo6EjsdikBPaYlIzJlKKQbS2uKMtlmF3mI0w");'>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60"></div>
+<div class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full border border-gray-100 shadow-md">
+<span class="text-slate-900 text-xs font-bold uppercase tracking-wider">Promo</span>
+</div>
+<div class="absolute bottom-4 left-4 text-white">
+<p class="font-bold text-sm bg-primary/90 inline-block px-2 py-0.5 rounded mb-1">Hàng Ngày</p>
+</div>
+</div>
+<div class="flex flex-col flex-1 p-6 gap-4">
+<div>
+<h4 class="text-slate-900 text-xl font-black leading-tight group-hover:text-primary transition-colors mb-2">Blue Happy Hour</h4>
+<div class="flex items-center gap-2 text-slate-500 text-sm font-medium">
+<span class="material-symbols-outlined text-[18px]">schedule</span> 16:00 - 18:00
+                                    <span class="mx-1">•</span>
+<span class="material-symbols-outlined text-[18px]">location_on</span> All Bars
+                                </div>
+</div>
+<p class="text-slate-600 text-sm line-clamp-2 leading-relaxed">
+                                Giảm giá 50% cho tất cả các loại Cocktail màu xanh đặc trưng và Bia thủ công.
+                            </p>
+<div class="mt-auto pt-4 border-t border-gray-100">
+<button class="w-full py-2 rounded-lg text-slate-900 text-sm font-bold hover:text-primary flex items-center justify-between transition-colors group/btn">
+                                    Xem Menu
+                                    <span class="material-symbols-outlined text-lg group-hover/btn:translate-x-1 transition-transform text-gray-400 group-hover/btn:text-primary">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-300 group">
+<div class="relative h-64 overflow-hidden">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="People dancing silhouette against colorful party lights" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAUwSiqHm2jtPa0xXSGtlYuJvBO8I4ZwgcWfK0nXvUZhXLxzsWxeZApWbOQneb1tHmh_EPQKPBtj0reLBEAOz_hR8HbESSN4ByFsr73wIiBhsxdJLZ5osOn2ghubWLpYTCIPNzznvYN88sl_8fcJJctfJysIbHDfWTYpUlK9b7H3orqAS89cDGQgnPYNBRburhLeKvkE9ITzZgsJQrzrB5FUs4ZSyN3Jm1Gjn_qW5F4rhjun3eoZmVbABYi8Lr6vwAIrSBGjcaWf60");'>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60"></div>
+<div class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full border border-gray-100 shadow-md">
+<span class="text-slate-900 text-xs font-bold uppercase tracking-wider">Party</span>
+</div>
+<div class="absolute bottom-4 left-4 text-white">
+<p class="font-bold text-sm bg-primary/90 inline-block px-2 py-0.5 rounded mb-1">Thứ Sáu, 30/10</p>
+</div>
+</div>
+<div class="flex flex-col flex-1 p-6 gap-4">
+<div>
+<h4 class="text-slate-900 text-xl font-black leading-tight group-hover:text-primary transition-colors mb-2">Halloween Ocean Bash</h4>
+<div class="flex items-center gap-2 text-slate-500 text-sm font-medium">
+<span class="material-symbols-outlined text-[18px]">schedule</span> 21:00
+                                    <span class="mx-1">•</span>
+<span class="material-symbols-outlined text-[18px]">location_on</span> Bãi Biển
+                                </div>
+</div>
+<p class="text-slate-600 text-sm line-clamp-2 leading-relaxed">
+                                Tiệc hóa trang dưới đáy đại dương lớn nhất năm. Giải thưởng cho trang phục ấn tượng nhất.
+                            </p>
+<div class="mt-auto pt-4 border-t border-gray-100">
+<button class="w-full py-2 rounded-lg text-slate-900 text-sm font-bold hover:text-primary flex items-center justify-between transition-colors group/btn">
+                                    Đặt Vé Ngay
+                                    <span class="material-symbols-outlined text-lg group-hover/btn:translate-x-1 transition-transform text-gray-400 group-hover/btn:text-primary">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="flex justify-center mt-6">
+<button class="flex items-center gap-2 text-slate-500 hover:text-primary transition-colors font-bold text-sm uppercase tracking-wide group">
+                        Xem thêm sự kiện
+                        <span class="material-symbols-outlined group-hover:translate-y-1 transition-transform">expand_more</span>
+</button>
+</div>
+</div>
+</div>
+<div class="bg-white py-20 px-4 md:px-20 border-t border-gray-100">
+<div class="max-w-[1000px] mx-auto bg-slate-50 border border-slate-100 rounded-3xl p-8 md:p-14 flex flex-col md:flex-row items-center justify-between gap-10 shadow-sm">
+<div class="flex-1">
+<h3 class="text-slate-900 text-2xl md:text-3xl font-black mb-3">Đừng Bỏ Lỡ Cuộc Vui!</h3>
+<p class="text-slate-500 text-base md:text-lg leading-relaxed">Đăng ký để nhận thông tin về các sự kiện mới nhất và ưu đãi đặc biệt từ Airwave.</p>
+</div>
+<div class="flex w-full md:w-auto flex-col sm:flex-row gap-3">
+<input class="h-14 px-6 rounded-full bg-white border border-gray-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary w-full sm:w-72 shadow-sm" placeholder="Email của bạn" type="email"/>
+<button class="h-14 px-8 rounded-full bg-primary text-white font-bold hover:bg-green-700 transition-all whitespace-nowrap shadow-lg shadow-green-500/20 active:scale-95">
+                        Đăng Ký
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<footer class="bg-white border-t border-gray-100 py-12 px-6 lg:px-20">
+<div class="max-w-[1200px] mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-8 rounded-full bg-primary/10 text-primary">
+<span class="material-symbols-outlined text-lg">local_bar</span>
+</div>
+<span class="text-slate-900 font-bold text-lg tracking-tight">Airwave Beach Club</span>
+</div>
+<div class="flex gap-8 text-slate-500 text-sm font-medium">
+<a class="hover:text-primary transition-colors" href="#">Facebook</a>
+<a class="hover:text-primary transition-colors" href="#">Instagram</a>
+<a class="hover:text-primary transition-colors" href="#">TripAdvisor</a>
+</div>
+<p class="text-slate-400 text-sm">© 2023 Airwave Beach Club. All rights reserved.</p>
+</div>
+</footer>
+</div>
+
+</body></html>
