@@ -8,8 +8,7 @@ export default function Footer() {
                 <div className="px-4 md:px-10 w-full max-w-[1200px] grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
                     <div className="col-span-1 md:col-span-1 flex flex-col gap-6">
                         <div className="flex items-center gap-2 text-slate-900">
-                            <span className="material-symbols-outlined text-primary text-3xl">local_bar</span>
-                            <h3 className="text-xl font-extrabold tracking-tight">Airwave</h3>
+                            <img src="/logo.jpg" alt="Airwave Beach Club" className="h-16 w-auto object-contain" />
                         </div>
                         <p className="text-slate-500 text-sm leading-relaxed">Điểm đến giải trí hàng đầu tại Phú Quốc, nơi cảm xúc thăng hoa cùng sóng biển.</p>
                         <div className="flex gap-4">

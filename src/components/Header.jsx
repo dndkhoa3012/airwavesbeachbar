@@ -16,8 +16,7 @@ export default function Header() {
                     <div className="layout-content-container flex flex-col max-w-[1200px] flex-1">
                         <div className="flex items-center justify-between whitespace-nowrap">
                             <Link href="/" className="flex items-center gap-3 cursor-pointer group hover:opacity-90 transition-opacity animate-logo-entrance">
-                                <span className="material-symbols-outlined text-primary text-4xl animate-icon-float">local_bar</span>
-                                <h2 className="text-slate-900 text-xl font-extrabold leading-tight tracking-[-0.02em]">Airwave Beach Club</h2>
+                                <img src="/logo.jpg" alt="Airwave Beach Club" className="h-20 w-auto object-contain" />
                             </Link>
 
                             <div className="hidden md:flex flex-1 justify-end gap-8 items-center">

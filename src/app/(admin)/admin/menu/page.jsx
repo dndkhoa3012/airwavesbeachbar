@@ -89,7 +89,7 @@ export default function AdminMenuPage() {
                             <Tooltip title="Xóa"><DeleteOutlined key="delete" className="hover:text-red-500" /></Tooltip>
                         ]}
                         className="overflow-hidden rounded-xl border-slate-200 shadow-sm"
-                        bodyStyle={{ padding: '16px' }}
+                        styles={{ body: { padding: '16px' } }}
                     >
                         <div className="flex justify-between items-start mb-2">
                             <h3 className="font-bold text-lg text-slate-800 truncate pr-2" title={item.name}>{item.name}</h3>

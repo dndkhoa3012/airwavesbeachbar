@@ -82,15 +82,7 @@ export default function ContactPage() {
                                     </div>
                                 </div>
 
-                                {/* Map */}
-                                <div className="h-[300px] rounded-2xl overflow-hidden bg-slate-200 relative group">
-                                    <div className="absolute inset-0 bg-[url('https://maps.googleapis.com/maps/api/staticmap?center=10.206262,103.966952&zoom=14&size=600x300&maptype=roadmap&markers=color:red%7C10.206262,103.966952&key=YOUR_API_KEY_HERE')] bg-cover bg-center grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"></div>
-                                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                                        <span className="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full text-xs font-bold text-slate-900 shadow-md">
-                                            Xem bản đồ chi tiết
-                                        </span>
-                                    </div>
-                                </div>
+
                             </div>
 
                             {/* Contact Form */}
