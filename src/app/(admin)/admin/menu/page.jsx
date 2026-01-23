@@ -1,13 +1,29 @@
 "use client";
 import React from 'react';
-import { Button, Input, Card, Tag, Tooltip } from 'antd';
 import {
-    SearchOutlined,
-    PlusOutlined,
-    EditOutlined,
-    DeleteOutlined,
-    FilterOutlined
-} from '@ant-design/icons';
+    Search,
+    Plus,
+    Filter,
+    MoreHorizontal,
+    Edit,
+    Trash2
+} from 'lucide-react';
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import {
+    Card,
+    CardContent,
+    CardFooter,
+} from "@/components/ui/card";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const menuItems = [
     {
@@ -49,65 +65,87 @@ export default function AdminMenuPage() {
         <div className="flex flex-col gap-6">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-slate-800">Quản lý Thực đơn</h1>
-                    <p className="text-slate-500">Quản lý danh sách món ăn, thức uống và cập nhật trạng thái phục vụ.</p>
+                    <h1 className="text-2xl font-bold text-slate-800 tracking-tight">Quản lý Thực đơn</h1>
+                    <p className="text-slate-500 text-sm">Quản lý danh sách món ăn, thức uống và cập nhật trạng thái phục vụ.</p>
                 </div>
                 <div className="flex gap-3 w-full md:w-auto">
-                    <Input prefix={<SearchOutlined className="text-slate-400" />} placeholder="Tìm kiếm món ăn..." className="w-full md:w-64" />
-                    <Button type="primary" icon={<PlusOutlined />} className="bg-green-500 hover:bg-green-600">Thêm món mới</Button>
+                    <div className="relative flex-1 md:w-64">
+                        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-slate-400" />
+                        <Input
+                            placeholder="Tìm kiếm món ăn..."
+                            className="pl-9 bg-white"
+                        />
+                    </div>
+                    <Button>
+                        <Plus className="w-4 h-4 mr-2" />
+                        Thêm món mới
+                    </Button>
                 </div>
             </div>
 
-            <div className="flex gap-2 overflow-x-auto pb-2">
-                <Button type="primary" className="bg-slate-800">Tất cả</Button>
-                <Button>Cocktails</Button>
-                <Button>Mocktails</Button>
-                <Button>Đồ ăn</Button>
-                <Button>Hải sản</Button>
-                <Button icon={<FilterOutlined />}>Bộ lọc khác</Button>
+            <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-none">
+                <Button variant="default" className="rounded-full shadow-none bg-primary text-primary-foreground hover:bg-primary/90">Tất cả</Button>
+                <Button variant="ghost" className="rounded-full text-slate-600 hover:text-slate-900 hover:bg-slate-100">Cocktails</Button>
+                <Button variant="ghost" className="rounded-full text-slate-600 hover:text-slate-900 hover:bg-slate-100">Mocktails</Button>
+                <Button variant="ghost" className="rounded-full text-slate-600 hover:text-slate-900 hover:bg-slate-100">Đồ ăn</Button>
+                <Button variant="ghost" className="rounded-full text-slate-600 hover:text-slate-900 hover:bg-slate-100">Hải sản</Button>
+                <Button variant="outline" className="rounded-full border-dashed ml-auto text-slate-500 hover:text-slate-900">
+                    <Filter className="w-4 h-4 mr-2" />
+                    Bộ lọc khác
+                </Button>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {menuItems.map((item, idx) => (
-                    <Card
-                        key={idx}
-                        hoverable
-                        cover={
-                            <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100 group">
-                                <div className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" style={{ backgroundImage: `url("${item.image}")` }}></div>
-                                <div className="absolute top-3 right-3">
-                                    {item.status === 'available' ? (
-                                        <Tag color="success" className="m-0 bg-white/90 backdrop-blur border-none font-bold text-green-600">Còn hàng</Tag>
-                                    ) : (
-                                        <Tag color="error" className="m-0 bg-white/90 backdrop-blur border-none font-bold text-red-600">Hết hàng</Tag>
-                                    )}
+                    <Card key={idx} className="overflow-hidden border-slate-200 shadow-sm hover:shadow-md transition-shadow group bg-white">
+                        <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
+                            <div
+                                className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                                style={{ backgroundImage: `url("${item.image}")` }}
+                            ></div>
+                            <div className="absolute top-3 right-3 flex gap-2">
+                                {item.status === 'available' ? (
+                                    <Badge variant="secondary" className="bg-white/90 backdrop-blur text-green-700 font-bold shadow-sm">Còn hàng</Badge>
+                                ) : (
+                                    <Badge variant="secondary" className="bg-white/90 backdrop-blur text-red-600 font-bold shadow-sm">Hết hàng</Badge>
+                                )}
+                            </div>
+                        </div>
+                        <CardContent className="p-4">
+                            <div className="flex justify-between items-start mb-2">
+                                <h3 className="font-bold text-lg text-slate-900 truncate pr-2 w-full" title={item.name}>{item.name}</h3>
+                                <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    {/* Action buttons could go here overlaying the image, or in a menu */}
                                 </div>
                             </div>
-                        }
-                        actions={[
-                            <Tooltip title="Chỉnh sửa"><EditOutlined key="edit" /></Tooltip>,
-                            <Tooltip title="Xóa"><DeleteOutlined key="delete" className="hover:text-red-500" /></Tooltip>
-                        ]}
-                        className="overflow-hidden rounded-xl border-slate-200 shadow-sm"
-                        styles={{ body: { padding: '16px' } }}
-                    >
-                        <div className="flex justify-between items-start mb-2">
-                            <h3 className="font-bold text-lg text-slate-800 truncate pr-2" title={item.name}>{item.name}</h3>
-                            <span className="font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded">{item.price}</span>
-                        </div>
-                        <p className="text-slate-500 text-sm line-clamp-2 h-10 mb-2">{item.desc}</p>
-                        <Tag className="bg-slate-100 text-slate-500 border-none">{item.category}</Tag>
+                            <p className="text-slate-500 text-sm line-clamp-2 h-10 mb-3 leading-relaxed">{item.desc}</p>
+
+                            <div className="flex items-center justify-between mt-4">
+                                <span className="font-extrabold text-primary bg-primary/10 px-2.5 py-1 rounded-md text-sm">{item.price}</span>
+                                <Badge variant="outline" className="text-slate-500 border-slate-200 font-normal">{item.category}</Badge>
+                            </div>
+                        </CardContent>
+                        <CardFooter className="p-2 border-t border-slate-50 bg-slate-50/50 gap-1">
+                            <Button variant="ghost" size="sm" className="w-full text-slate-600 hover:text-primary hover:bg-white hover:shadow-sm">
+                                <Edit className="w-4 h-4 mr-2" />
+                                Chỉnh sửa
+                            </Button>
+                            <Button variant="ghost" size="sm" className="w-full text-slate-600 hover:text-red-600 hover:bg-white hover:shadow-sm">
+                                <Trash2 className="w-4 h-4 mr-2" />
+                                Xóa
+                            </Button>
+                        </CardFooter>
                     </Card>
                 ))}
 
-                {/* Add New Placeholer Card */}
-                <div className="flex flex-col items-center justify-center border-2 border-dashed border-slate-200 rounded-xl min-h-[300px] cursor-pointer hover:border-green-400 hover:bg-green-50/30 transition-all gap-4 group">
-                    <div className="w-16 h-16 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-white group-hover:shadow-md transition-all">
-                        <PlusOutlined className="text-2xl text-slate-300 group-hover:text-green-500" />
+                {/* Add New Placeholder Card */}
+                <div role="button" className="flex flex-col items-center justify-center border-2 border-dashed border-slate-200 rounded-xl min-h-[350px] cursor-pointer hover:border-primary/50 hover:bg-primary/5 transition-all gap-4 group bg-slate-50/50">
+                    <div className="w-16 h-16 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <Plus className="w-8 h-8 text-slate-300 group-hover:text-primary" />
                     </div>
-                    <div className="text-center">
-                        <p className="font-bold text-slate-700 group-hover:text-green-600">Thêm món mới</p>
-                        <p className="text-xs text-slate-400">Tạo món ăn hoặc đồ uống mới</p>
+                    <div className="text-center px-4">
+                        <p className="font-bold text-slate-700 group-hover:text-primary transition-colors">Thêm món mới</p>
+                        <p className="text-xs text-slate-400 mt-1 max-w-[200px] mx-auto">Tạo món ăn hoặc đồ uống mới vào thực đơn của bạn</p>
                     </div>
                 </div>
             </div>

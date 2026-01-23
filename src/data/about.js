@@ -9,7 +9,7 @@ export const aboutData = {
         subheading: "Từ một bãi biển hoang sơ đến điểm đến giải trí hàng đầu",
         content: `
             <p class="mb-4">Airwaves Beach Club không chỉ là một quán bar bãi biển. Đó là hiện thân của giấc mơ về một không gian nơi con người có thể thực sự kết nối với thiên nhiên và âm nhạc.</p>
-            <p class="mb-4">Được thành lập vào năm 2024, chúng tôi mang trong mình sứ mệnh định nghĩa lại trải nghiệm giải trí tại Phú Quốc. Sự kết hợp tinh tế giữa thiết kế kiến trúc bền vững, ẩm thực địa phương sáng tạo và những giai điệu được tuyển chọn kỹ lưỡng.</p>
+            <p class="mb-4">Được thành lập vào năm 2026, chúng tôi mang trong mình sứ mệnh định nghĩa lại trải nghiệm giải trí tại Phú Quốc. Sự kết hợp tinh tế giữa thiết kế kiến trúc bền vững, ẩm thực địa phương sáng tạo và những giai điệu được tuyển chọn kỹ lưỡng.</p>
             <p>Tại Airwaves, mỗi khoảnh khắc đều là một tác phẩm nghệ thuật - từ ly cocktail màu lam ngọc trên tay bạn đến ánh hoàng hôn rực rỡ buông xuống biển Tây.</p>
         `,
         image: "https://lh3.googleusercontent.com/aida-public/AB6AXuB7ZZbq06yMIJiyptrBKGwGUo3ZT4sHsLVnQ2vDmlZKgQtC9_7tlIVjxOF8HEj3qxfPc83a2-7dx5fcqd_OSEWUhPcrxVxKs0ZrQx1VrKc8ZpzreR6jijNLfcr8fJy_o0LRRg9P2sdO68fGBTwh_CAsMlwRnqEQTxs3SEaGG9N82Yn9jeJ_xi4hDlsgkQblaVQkvPiYs_EwtP6upbC_M72p621wuwGNrCIqnH2zWWK6FFbcS8OrTNFLHhdhpSVGp7Lj5rC8GrxupwE"
