@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Image from "next/image"
 import {
   IconCamera,
   IconChartBar,
@@ -19,9 +20,7 @@ import {
   IconUsers,
 } from "@tabler/icons-react"
 
-import { NavDocuments } from "@/components/admin/nav-documents"
 import { NavMain } from "@/components/admin/nav-main"
-import { NavSecondary } from "@/components/admin/nav-secondary"
 import { NavUser } from "@/components/admin/nav-user"
 import {
   Sidebar,
@@ -41,29 +40,19 @@ const data = {
   },
   navMain: [
     {
-      title: "Dashboard",
+      title: "Tổng quan",
       url: "#",
       icon: IconDashboard,
     },
     {
-      title: "Lifecycle",
+      title: "Đặt chỗ",
       url: "#",
       icon: IconListDetails,
     },
     {
-      title: "Analytics",
+      title: "Thực đơn",
       url: "#",
       icon: IconChartBar,
-    },
-    {
-      title: "Projects",
-      url: "#",
-      icon: IconFolder,
-    },
-    {
-      title: "Team",
-      url: "#",
-      icon: IconUsers,
     },
   ],
   navClouds: [
@@ -114,23 +103,6 @@ const data = {
       ],
     },
   ],
-  navSecondary: [
-    {
-      title: "Settings",
-      url: "#",
-      icon: IconSettings,
-    },
-    {
-      title: "Get Help",
-      url: "#",
-      icon: IconHelp,
-    },
-    {
-      title: "Search",
-      url: "#",
-      icon: IconSearch,
-    },
-  ],
   documents: [
     {
       name: "Data Library",
@@ -158,10 +130,13 @@ export function AppSidebar({
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:!p-1.5">
-              <a href="#">
-                <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">Acme Inc.</span>
+            <SidebarMenuButton size="lg" asChild className="data-[slot=sidebar-menu-button]:!p-0 hover:bg-transparent">
+              <a href="#" className="flex items-center justify-start pl-2">
+                <img
+                  src="/admin-logo.png"
+                  alt="Airwaves Beach Club"
+                  className="h-8 w-auto object-contain"
+                />
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -169,8 +144,6 @@ export function AppSidebar({
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />

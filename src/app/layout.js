@@ -2,7 +2,7 @@ import { Plus_Jakarta_Sans, Noto_Sans } from "next/font/google";
 import "./globals.css";
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { ConfigProvider } from 'antd';
-import ChatWidget from "@/components/public/ChatWidget";
+
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -39,7 +39,6 @@ export default function RootLayout({ children }) {
             }}
           >
             {children}
-            <ChatWidget />
           </ConfigProvider>
         </AntdRegistry>
       </body>
