@@ -20,6 +20,8 @@ import {
   IconSearch,
   IconSettings,
   IconUsers,
+  IconHome,
+  IconBowlSpoon,
 } from "@tabler/icons-react"
 
 import { NavMain } from "@/components/admin/nav-main"
@@ -32,7 +34,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/animate-ui/components/radix/sidebar"
+} from "@/components/ui/sidebar"
 
 const data = {
   user: {
@@ -47,6 +49,11 @@ const data = {
       icon: IconDashboard,
     },
     {
+      title: "Trang chủ",
+      url: "/admin/home",
+      icon: IconHome,
+    },
+    {
       title: "Đặt bàn",
       url: "/admin/booking",
       icon: IconListDetails,
@@ -54,7 +61,7 @@ const data = {
     {
       title: "Mặt hàng",
       url: "#",
-      icon: IconChartBar,
+      icon: IconBowlSpoon,
       items: [
         {
           title: "Thực đơn",
@@ -62,14 +69,24 @@ const data = {
         },
         {
           title: "Danh mục",
-          url: "/admin/categories",
+          url: "/admin/menu-categories",
         },
       ],
     },
     {
       title: "Sự kiện",
-      url: "/admin/events",
+      url: "#",
       icon: IconCalendarEvent,
+      items: [
+        {
+          title: "Sự kiện",
+          url: "/admin/events",
+        },
+        {
+          title: "Danh mục",
+          url: "/admin/event-categories",
+        },
+      ],
     },
     {
       title: "Thư viện ảnh",

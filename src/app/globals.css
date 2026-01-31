@@ -194,3 +194,149 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* CKEditor Content Styles for Public Pages */
+.ck-content {
+  line-height: 1.8;
+}
+
+.ck-content h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 1.5rem 0 0.75rem;
+  color: #0f172a;
+}
+
+.ck-content h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 1.25rem 0 0.75rem;
+  color: #0f172a;
+}
+
+.ck-content h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 1rem 0 0.5rem;
+  color: #0f172a;
+}
+
+.ck-content p {
+  margin: 0.75rem 0;
+}
+
+.ck-content ul,
+.ck-content ol {
+  padding-left: 1.5rem;
+  margin: 0.75rem 0;
+}
+
+.ck-content ul {
+  list-style-type: disc;
+}
+
+.ck-content ol {
+  list-style-type: decimal;
+}
+
+.ck-content li {
+  margin: 0.25rem 0;
+}
+
+.ck-content blockquote {
+  border-left: 4px solid #4ade80;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  color: #64748b;
+  font-style: italic;
+  background: #f0fdf4;
+  padding: 1rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.ck-content a {
+  color: #4ade80;
+  text-decoration: underline;
+}
+
+.ck-content a:hover {
+  color: #22c55e;
+}
+
+.ck-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  margin: 1rem 0;
+}
+
+.ck-content table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.ck-content table td,
+.ck-content table th {
+  border: 1px solid #e2e8f0;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.ck-content table th {
+  background-color: #f1f5f9;
+  font-weight: 600;
+}
+
+.ck-content table tr:hover {
+  background-color: #f8fafc;
+}
+
+.ck-content pre {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  font-family: ui-monospace, monospace;
+  font-size: 0.875rem;
+  margin: 1rem 0;
+}
+
+.ck-content code {
+  background-color: #f1f5f9;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+}
+
+.ck-content hr {
+  border: none;
+  border-top: 2px solid #e2e8f0;
+  margin: 2rem 0;
+}
+
+.ck-content iframe,
+.ck-content .media {
+  border-radius: 0.75rem;
+  max-width: 100%;
+  margin: 1rem 0;
+}
+
+.ck-content figure.media {
+  margin: 1rem 0;
+}
+
+.ck-content figure.media>div {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+}
+
+.ck-content figure.media iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}

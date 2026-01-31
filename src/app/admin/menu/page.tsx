@@ -6,11 +6,11 @@ import type { InputRef, TableColumnType, TableProps } from 'antd';
 import type { FilterDropdownProps } from 'antd/es/table/interface';
 import { SearchOutlined } from "@ant-design/icons";
 import Highlighter from 'react-highlight-words';
-import { Download, Plus, Edit, Trash2, FilterX } from "lucide-react";
-
+import { Download, Plus, Edit, Trash2, FilterX, Upload } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { MenuAdd } from "@/app/admin/menu/components/menu-add";
-import { MenuEdit } from "@/app/admin/menu/components/menu-edit";
+import { MenuImport } from "@/app/admin/menu/components/menu-import";
+import * as XLSX from "xlsx";
 
 // --- Consolidated Mock Data ---
 // --- Consolidated Mock Data ---
@@ -21,18 +21,20 @@ const MenuPage = () => {
     // STATE MANAGEMENT
     // ============================================================================
 
+    const [messageApi, contextHolder] = message.useMessage();
+
     // --- Data State (via Hook) ---
     const { menus: menuItems, categories, loading, createMenu, updateMenu, deleteMenu } = useMenu();
 
     // --- Modal State ---
-    const [isItemModalOpen, setIsItemModalOpen] = useState(false);
-    const [editingItem, setEditingItem] = useState<any>(null);
+    const [isImportModalOpen, setIsImportModalOpen] = useState(false);
 
     // --- Table Filter & Search State ---
     const [searchText, setSearchText] = useState('');
     const [searchedColumn, setSearchedColumn] = useState('');
     const [filteredInfo, setFilteredInfo] = useState<Record<string, any>>({});
     const searchInput = useRef<InputRef>(null);
+    const router = useRouter();
 
     // ============================================================================
     // HANDLERS: DATA MANIPULATION
@@ -42,34 +44,40 @@ const MenuPage = () => {
         await deleteMenu(id);
     };
 
+    const handleExport = () => {
+        if (!menuItems || menuItems.length === 0) {
+            messageApi.warning("Không có dữ liệu để xuất!");
+            return;
+        }
+
+        const dataToExport = menuItems.map(item => {
+            let desc = item.desc || item.description || '';
+            if (desc.length > 32000) {
+                desc = desc.substring(0, 32000) + '...';
+            }
+
+            return {
+                'Tên món': item.name,
+                'Danh mục': item.category,
+                'Giá': item.price,
+                'Mô tả': desc
+            };
+        });
+
+        const worksheet = XLSX.utils.json_to_sheet(dataToExport);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Menu");
+
+        XLSX.writeFile(workbook, "Menu_Data.xlsx");
+        messageApi.success("Đã xuất file Excel thành công!");
+    };
+
     const openCreateItemModal = () => {
-        setEditingItem(null);
-        setIsItemModalOpen(true);
+        router.push('/admin/menu/create');
     };
 
     const openEditItemModal = (record: any) => {
-        setEditingItem(record);
-        setIsItemModalOpen(true);
-    };
-
-    const handleSaveItem = async (values: any) => {
-        if (editingItem) {
-            await updateMenu({
-                ...editingItem,
-                ...values,
-                price: `${values.price}k`.replace('kk', 'k') // Simple format check
-            });
-        } else {
-            await createMenu({
-                name: values.name,
-                category: values.category,
-                price: `${values.price}k`.replace('kk', 'k'),
-                desc: values.desc,
-                image: values.image || "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=2680&auto=format&fit=crop"
-            });
-        }
-        setIsItemModalOpen(false);
-        setEditingItem(null);
+        router.push(`/admin/menu/${record.id}`);
     };
 
     // ============================================================================
@@ -222,11 +230,25 @@ const MenuPage = () => {
             render: (text: string) => <span className="text-slate-500 line-clamp-2 max-w-[300px]">{text}</span>
         },
         {
-            title: "GIÁ",
+            title: "GIÁ (tạm chưa show trên web)",
             dataIndex: "price",
             key: "price",
-            width: 120,
-            render: (price: string) => <span className="font-semibold text-slate-700">{price}</span>
+            width: 140,
+            render: (price: string) => {
+                let displayPrice = price;
+                // If price contains 'k', it's legacy format
+                if (price && typeof price === 'string' && price.toLowerCase().includes('k')) {
+                    // Try to standardise or just display
+                    displayPrice = price;
+                } else if (price) {
+                    // Assumed number string -> format as VND
+                    const num = parseInt(price);
+                    if (!isNaN(num)) {
+                        displayPrice = num.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                    }
+                }
+                return <span className="font-semibold text-slate-700">{displayPrice}</span>;
+            }
         },
         {
             title: "",
@@ -263,18 +285,25 @@ const MenuPage = () => {
     // RENDER
     // ============================================================================
 
+
+
     return (
         <div className="flex flex-col gap-6 p-6">
+            {contextHolder}
             {/* --- PAGE HEADER / TOOLBAR --- */}
             <div className="flex items-center justify-end">
                 <div className="flex items-center gap-2">
-                    <Button variant="outline" className="gap-2">
+                    <Button variant="outline" className="gap-2" onClick={() => setIsImportModalOpen(true)}>
+                        <Upload className="h-4 w-4" />
+                        Nhập Excel
+                    </Button>
+                    <Button variant="outline" className="gap-2" onClick={handleExport}>
                         <Download className="h-4 w-4" />
                         Xuất Excel
                     </Button>
                     <Button className="gap-2 bg-green-500 hover:bg-green-600" onClick={openCreateItemModal}>
                         <Plus className="h-4 w-4" />
-                        Thêm món mới
+                        Thêm thực đơn
                     </Button>
                 </div>
             </div>
@@ -346,27 +375,29 @@ const MenuPage = () => {
 
             {/* --- MODALS --- */}
 
-            {/* Create/Edit Item Modal */}
-            <MenuAdd
-                open={isItemModalOpen && !editingItem}
-                onCancel={() => {
-                    setIsItemModalOpen(false);
-                    setEditingItem(null);
-                }}
-                onSave={handleSaveItem}
-                categories={categories}
-            />
 
-            {/* Edit Item Modal */}
-            <MenuEdit
-                open={isItemModalOpen && !!editingItem}
-                onCancel={() => {
-                    setIsItemModalOpen(false);
-                    setEditingItem(null);
+
+            {/* Import Excel Modal */}
+            <MenuImport
+                open={isImportModalOpen}
+                onCancel={() => setIsImportModalOpen(false)}
+                onImport={async (data) => {
+                    for (const item of data) {
+                        await createMenu({
+                            name: item.name,
+                            category: item.category, // Auto-create or map in backend
+                            price: `${item.price}`,
+                            desc: item.desc,
+                            image: item.image
+                        }).catch(err => console.error(`Skipped ${item.name}`, err));
+                    }
+                    // Refresh data happens automatically via internal state update or we trigger fetch
+                    // But standard createMenu updates state locally. 
+                    // However bulk update locally in loop might be slow for render. 
+                    // Ideally we should use a bulk API. 
+                    // For now, let's just trigger a full refresh after loop to be safe and clean.
+                    window.location.reload();
                 }}
-                onSave={handleSaveItem}
-                initialValues={editingItem}
-                categories={categories}
             />
         </div>
     );

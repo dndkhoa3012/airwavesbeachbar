@@ -1,33 +1,75 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { events } from "@/data/events";
-
 export default function EventsPage() {
+    const [events, setEvents] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState("all");
+    const [showAll, setShowAll] = useState(false);
 
-    // Get the featured event (e.g., the first one for now, or by a specific flag)
-    const featuredEvent = events[0];
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [eventsRes, categoriesRes] = await Promise.all([
+                    fetch('/api/v1/events'),
+                    fetch('/api/v1/event-categories')
+                ]);
 
-    // Filter events based on category (excluding the featured one if desired, or keep all)
-    // For this simple implementation, let's just show all except the featured one in the grid, or all of them.
-    // Let's filter out the featured event from the grid to avoid duplication if it's prominently displayed.
-    const gridEvents = events.filter(e => e.id !== featuredEvent.id);
+                if (eventsRes.ok) {
+                    const eventsData = await eventsRes.json();
+                    setEvents(eventsData);
+                }
+
+                if (categoriesRes.ok) {
+                    const categoriesData = await categoriesRes.json();
+                    setCategories(categoriesData);
+                }
+            } catch (error) {
+                console.error("Failed to fetch data:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    // Filter out hidden events first
+    const visibleEvents = events.filter(e => !e.isHidden);
+
+    // Get the featured event (only if explicitly marked as isFeatured and not hidden)
+    const featuredEvent = visibleEvents.find(e => e.isFeatured) || null;
+
+    // Filter events for grid
+    const gridEvents = visibleEvents.filter(e => {
+        if (featuredEvent && e.id === featuredEvent.id) return false;
+        if (filter === 'all') return true;
+        return e.category === filter;
+    });
+
+    if (loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-slate-50">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+            </div>
+        );
+    }
 
     return (
         <div className="flex flex-col min-h-screen bg-slate-50">
             {/* Hero Section */}
-            <div className="@container">
-                <div className="relative flex min-h-[500px] flex-col items-center justify-center p-4 text-center overflow-hidden">
+            <div className="px-4 pt-6 md:px-10 lg:px-40 bg-slate-50 flex justify-center">
+                <div className="relative w-full max-w-[1200px] h-[400px] md:h-[500px] rounded-[40px] overflow-hidden shadow-2xl shadow-slate-200">
+                    {/* Background Image */}
                     <div className="absolute inset-0 z-0">
-                        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-white"></div>
                         <img
-                            alt="Phu Quoc beach party at night with lights and crowd"
-                            className="h-full w-full object-cover"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIvey49gi6cMpdseC6v6pqH-zDVBPalI_sPawMtQFP9q2wId8LOdeDmj_RfuIagzGQgYDIYtZ2Og44FulQzkzlLbf4J-nZHq9ScF_TPY6vVR7BT35XqUlIxHGZTuLTWX_1HsTOeRPBsXEnAa3nrqM8NLCEff8RsIsiupQvQcD8-UpKkY8Zz0SUx2HEfIVs4FMSZlZdRfwuiKY5wgRA2wZwNEgo7OSufCpEAAjqU5Nux7Y-PCQIGnoA4WYuY6Oe9F1VwXzC_ob8tfg"
+                            alt="Sunset cocktail"
+                            className="w-full h-full object-cover transition-transform duration-1000 hover:scale-105"
+                            src="https://images.unsplash.com/photo-1514362545857-3bc16549766b?q=80&w=2000&auto=format&fit=crop"
                         />
-                    </div>
-                    <div className="relative z-10 flex flex-col gap-6 max-w-[800px] animate-fade-in-up">
+                        <div className="absolute inset-0 bg-black/20"></div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                     </div>
                 </div>
             </div>
@@ -40,16 +82,25 @@ export default function EventsPage() {
                     <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                         <h2 className="text-slate-900 text-3xl font-black tracking-tight relative pl-4 border-l-4 border-primary">Sự Kiện Sắp Tới</h2>
                         <div className="flex gap-3 overflow-x-auto pb-2 hide-scrollbar w-full md:w-auto p-1">
-                            {['all', 'Cuối tuần này', 'Nhạc sống', 'DJ Sets', 'Đặc biệt'].map((f) => (
+                            <button
+                                onClick={() => setFilter('all')}
+                                className={`flex h-10 shrink-0 items-center justify-center px-6 rounded-full font-bold text-sm transition-all hover:-translate-y-0.5 active:scale-95 ${filter === 'all'
+                                    ? "bg-primary text-white shadow-lg shadow-green-500/20"
+                                    : "bg-white text-slate-600 border border-gray-200 hover:text-primary hover:border-primary hover:shadow-md"
+                                    }`}
+                            >
+                                Tất cả
+                            </button>
+                            {categories.map((cat) => (
                                 <button
-                                    key={f}
-                                    onClick={() => setFilter(f)}
-                                    className={`flex h-10 shrink-0 items-center justify-center px-6 rounded-full font-bold text-sm transition-all hover:-translate-y-0.5 active:scale-95 ${filter === f
+                                    key={cat.id}
+                                    onClick={() => setFilter(cat.name)}
+                                    className={`flex h-10 shrink-0 items-center justify-center px-6 rounded-full font-bold text-sm transition-all hover:-translate-y-0.5 active:scale-95 ${filter === cat.name
                                         ? "bg-primary text-white shadow-lg shadow-green-500/20"
                                         : "bg-white text-slate-600 border border-gray-200 hover:text-primary hover:border-primary hover:shadow-md"
                                         }`}
                                 >
-                                    {f === 'all' ? 'Tất cả' : f}
+                                    {cat.name}
                                 </button>
                             ))}
                         </div>
@@ -68,8 +119,12 @@ export default function EventsPage() {
                                 </div>
                                 <div className="flex flex-col justify-center p-8 lg:p-14 gap-8 relative bg-white">
                                     <div className="hidden lg:flex absolute top-10 right-10 flex-col items-center justify-center w-20 h-20 bg-white rounded-2xl border border-gray-100 shadow-xl group-hover:scale-110 transition-transform duration-300">
-                                        <span className="text-primary text-xs font-bold uppercase tracking-wider">Tháng 10</span>
-                                        <span className="text-slate-900 text-3xl font-black">24</span>
+                                        <span className="text-primary text-xs font-bold uppercase tracking-wider">
+                                            {featuredEvent.rawDate ? new Date(featuredEvent.rawDate).toLocaleString('default', { month: 'short' }) : 'Date'}
+                                        </span>
+                                        <span className="text-slate-900 text-3xl font-black">
+                                            {featuredEvent.rawDate ? new Date(featuredEvent.rawDate).getDate() : '??'}
+                                        </span>
                                     </div>
                                     <div className="flex flex-col gap-4">
                                         <div className="flex items-center gap-2 text-primary font-bold text-sm tracking-widest uppercase">
@@ -98,9 +153,6 @@ export default function EventsPage() {
                                         {featuredEvent.description}
                                     </p>
                                     <div className="flex flex-wrap gap-4 pt-4">
-                                        <button className="flex items-center justify-center h-12 px-10 rounded-full bg-primary text-white font-bold text-base hover:bg-green-700 hover:text-white transition-all shadow-lg shadow-green-500/30 hover:-translate-y-1 active:scale-95">
-                                            Đặt Vé Ngay
-                                        </button>
                                         <div className="flex items-center justify-center h-12 px-10 rounded-full border border-gray-200 bg-white text-slate-900 font-bold text-base group-hover:border-primary group-hover:text-primary transition-all hover:-translate-y-1 active:scale-95 shadow-sm">
                                             Xem Chi Tiết
                                         </div>
@@ -112,7 +164,7 @@ export default function EventsPage() {
 
                     {/* Events Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {gridEvents.map((event) => (
+                        {(showAll ? gridEvents : gridEvents.slice(0, 6)).map((event) => (
                             <Link key={event.id} href={`/events/${event.id}`} className="flex flex-col rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-300 group">
                                 <div className="relative h-64 overflow-hidden">
                                     <div
@@ -132,7 +184,6 @@ export default function EventsPage() {
                                         <h4 className="text-slate-900 text-xl font-black leading-tight group-hover:text-primary transition-colors mb-2 line-clamp-1">{event.title}</h4>
                                         <div className="flex items-center gap-2 text-slate-500 text-sm font-medium">
                                             <span className="material-symbols-outlined text-[18px]">schedule</span> {event.time}
-                                            <span className="mx-1">•</span>
                                             <span className="material-symbols-outlined text-[18px]">location_on</span> {event.location}
                                         </div>
                                     </div>
@@ -141,7 +192,7 @@ export default function EventsPage() {
                                     </p>
                                     <div className="mt-auto pt-4 border-t border-gray-100">
                                         <div className="w-full py-2 rounded-lg text-slate-900 text-sm font-bold group-hover:text-primary flex items-center justify-between transition-colors group/btn">
-                                            {event.price === 'Miễn phí' ? 'Xem Chi Tiết' : 'Đặt Vé Ngay'}
+                                            {(!event.price || event.price === 0 || event.price === 'Miễn phí') ? 'Xem Chi Tiết' : 'Đặt Vé Ngay'}
                                             <span className="material-symbols-outlined text-lg group-hover/btn:translate-x-1 transition-transform text-gray-400 group-hover/btn:text-primary">arrow_forward</span>
                                         </div>
                                     </div>
@@ -150,12 +201,17 @@ export default function EventsPage() {
                         ))}
                     </div>
 
-                    <div className="flex justify-center mt-6">
-                        <button className="flex items-center gap-2 text-slate-500 hover:text-primary transition-colors font-bold text-sm uppercase tracking-wide group">
-                            Xem thêm sự kiện
-                            <span className="material-symbols-outlined group-hover:translate-y-1 transition-transform">expand_more</span>
-                        </button>
-                    </div>
+                    {gridEvents.length > 6 && !showAll && (
+                        <div className="flex justify-center mt-6">
+                            <button
+                                onClick={() => setShowAll(true)}
+                                className="flex items-center gap-2 text-slate-500 hover:text-primary transition-colors font-bold text-sm uppercase tracking-wide group"
+                            >
+                                Xem thêm sự kiện
+                                <span className="material-symbols-outlined group-hover:translate-y-1 transition-transform">expand_more</span>
+                            </button>
+                        </div>
+                    )}
 
                 </div>
             </div>

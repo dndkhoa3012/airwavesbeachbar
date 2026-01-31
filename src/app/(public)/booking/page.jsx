@@ -13,17 +13,52 @@ export default function BookingPage() {
     });
 
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Here you would typically send the data to your backend
-        console.log("Booking Data:", formData);
-        setIsSubmitted(true);
+        setIsLoading(true);
+
+        try {
+            const payload = {
+                customerName: formData.name,
+                phoneNumber: formData.phone,
+                email: formData.email,
+                date: formData.date,
+                time: formData.time,
+                guests: Number(formData.guests === 'other' ? 7 : formData.guests), // Defaulting 'other' to 7 for now or handle appropriately
+                note: formData.notes,
+                status: 'pending'
+            };
+
+            console.log("Sending booking payload:", payload);
+
+            const res = await fetch('/api/v1/bookings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                console.log("Booking success:", data);
+                setIsSubmitted(true);
+            } else {
+                const errData = await res.json();
+                console.error("Booking failed:", errData);
+                alert(`Có lỗi xảy ra: ${errData.error || "Lỗi không xác định"}`);
+            }
+        } catch (error) {
+            console.error("Booking submit error:", error);
+            alert("Lỗi kết nối, vui lòng thử lại.");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -54,7 +89,7 @@ export default function BookingPage() {
                                 </div>
                                 <h2 className="text-3xl font-black text-slate-900 mb-4">Đặt bàn thành công!</h2>
                                 <p className="text-slate-600 text-lg mb-8">
-                                    Cảm ơn bạn đã lựa chọn Airwave Beach Club. Chúng tôi sẽ liên hệ xác nhận trong ít phút.
+                                    Cảm ơn bạn đã lựa chọn Airwaves Beach Club.<br /> Chúng tôi sẽ liên hệ xác nhận trong ít phút.
                                 </p>
                                 <button
                                     onClick={() => setIsSubmitted(false)}
@@ -183,8 +218,10 @@ export default function BookingPage() {
                                         </div>
                                     </div>
 
-                                    <button className="w-full h-14 bg-primary hover:bg-primary-hover text-slate-900 font-bold text-lg rounded-xl shadow-lg shadow-green-500/20 transition-all transform hover:-translate-y-1 mt-2">
-                                        Xác nhận đặt bàn
+                                    <button
+                                        disabled={isLoading}
+                                        className="w-full h-14 bg-primary hover:bg-primary-hover text-slate-900 font-bold text-lg rounded-xl shadow-lg shadow-green-500/20 transition-all transform hover:-translate-y-1 mt-2 disabled:opacity-70 disabled:cursor-not-allowed">
+                                        {isLoading ? "Đang xử lý..." : "Xác nhận đặt bàn"}
                                     </button>
                                 </form>
                             </div>

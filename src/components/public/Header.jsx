@@ -35,7 +35,7 @@ export default function Header() {
                                         size="large"
                                         className="bg-primary hover:!bg-primary-hover border-none shadow-md shadow-green-500/20 font-bold text-slate-900"
                                     >
-                                        Đặt bàn ngay
+                                        Đặt bàn
                                     </Button>
                                 </Link>
                             </div>
@@ -56,7 +56,7 @@ export default function Header() {
                                 <div className="flex justify-center mt-2">
                                     <Link href="/booking" onClick={() => setIsMenuOpen(false)}>
                                         <Button type="primary" shape="round" size="large" className="w-full bg-primary text-slate-900 font-bold shadow-md">
-                                            Đặt bàn ngay
+                                            Đặt bàn
                                         </Button>
                                     </Link>
                                 </div>

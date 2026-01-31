@@ -18,7 +18,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubItem,
   SidebarMenuSubButton,
-} from "@/components/animate-ui/components/radix/sidebar"
+} from "@/components/ui/sidebar"
 
 export function NavMain({
   items
@@ -30,7 +30,7 @@ export function NavMain({
   React.useEffect(() => {
     items.forEach(item => {
       if (item.items) {
-        const hasActiveChild = item.items.some(sub => pathname === sub.url || pathname.startsWith(sub.url));
+        const hasActiveChild = item.items.some(sub => pathname === sub.url || (sub.url !== '#' && sub.url !== '/admin' && pathname.startsWith(sub.url + '/')));
         if (hasActiveChild) {
           setOpenItems(prev => ({ ...prev, [item.title]: true }))
         }
@@ -43,7 +43,8 @@ export function NavMain({
       <SidebarGroupContent className="flex flex-col gap-2">
         <SidebarMenu>
           {items.map((item) => {
-            const isActive = pathname === item.url
+            const isChildActive = item.items?.some(sub => sub.url === '/admin' ? pathname === '/admin' : (pathname === sub.url || (sub.url !== '#' && pathname.startsWith(sub.url + '/'))));
+            const isActive = (item.url === '/admin' ? pathname === '/admin' : (pathname === item.url || (item.url !== '#' && pathname.startsWith(item.url + '/'))));
             const isOpen = openItems[item.title]
 
             if (item.items && item.items.length > 0) {
@@ -60,7 +61,7 @@ export function NavMain({
                     <CollapsibleTrigger asChild>
                       <SidebarMenuButton
                         tooltip={item.title}
-                        isActive={isActive}
+                        isActive={isActive} // Check if any child is active
                         className="w-full justify-between"
                       >
                         <div className="flex items-center gap-2">
@@ -77,7 +78,7 @@ export function NavMain({
                       <SidebarMenuSub>
                         {item.items.map(subItem => (
                           <SidebarMenuSubItem key={subItem.url}>
-                            <SidebarMenuSubButton asChild isActive={pathname === subItem.url}>
+                            <SidebarMenuSubButton asChild isActive={pathname === subItem.url || (subItem.url !== '#' && subItem.url !== '/admin' && pathname.startsWith(subItem.url + '/'))}>
                               <Link href={subItem.url}>
                                 {subItem.title}
                               </Link>
@@ -95,7 +96,7 @@ export function NavMain({
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton
                   tooltip={item.title}
-                  isActive={isActive}
+                  isActive={pathname === item.url || (item.url !== '#' && item.url !== '/admin' && pathname.startsWith(item.url + '/'))}
                   asChild
                 >
                   <Link href={item.url}>

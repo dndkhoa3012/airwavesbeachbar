@@ -1,20 +1,30 @@
 import { useState, useEffect } from 'react';
-import { getMenus, createMenu as apiCreateMenu, updateMenu as apiUpdateMenu, deleteMenu as apiDeleteMenu, initialCategories } from '../menu-data';
+import { getMenus, createMenu as apiCreateMenu, updateMenu as apiUpdateMenu, deleteMenu as apiDeleteMenu, getCategories, initialCategories } from '../menu.service';
 import { message } from 'antd';
 
 export function useMenu() {
     const [menus, setMenus] = useState<any[]>([]);
-    const [categories] = useState(initialCategories);
+    const [categories, setCategories] = useState(initialCategories);
     const [loading, setLoading] = useState(false);
 
     const fetchMenus = async () => {
         setLoading(true);
         try {
-            const data = await getMenus();
-            setMenus(data);
+            // Load both menus and categories
+            const [menusData, categoriesData] = await Promise.all([
+                getMenus(),
+                getCategories() // New function in menu-data
+            ]);
+
+            setMenus(menusData);
+
+            // Only update categories if we got data, else fallback to initial
+            if (categoriesData && categoriesData.length > 0) {
+                setCategories(categoriesData);
+            }
         } catch (error) {
-            console.error("Failed to fetch menus:", error);
-            message.error("Không thể tải dữ liệu món ăn");
+            console.error("Failed to fetch data:", error);
+            message.error("Không thể tải dữ liệu");
         } finally {
             setLoading(false);
         }

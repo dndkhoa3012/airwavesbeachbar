@@ -5,8 +5,10 @@ import { SiteHeader } from "@/components/admin/site-header"
 import {
     SidebarInset,
     SidebarProvider,
-} from "@/components/animate-ui/components/radix/sidebar"
+} from "@/components/ui/sidebar"
 import React from "react"
+
+import { App } from "antd"
 
 export default function AdminLayout({
     children,
@@ -16,23 +18,25 @@ export default function AdminLayout({
     const [open, setOpen] = React.useState(true)
 
     return (
-        <SidebarProvider
-            open={open}
-            onOpenChange={setOpen}
-            className=""
-            style={
-                {
-                    "--header-height": "calc(var(--spacing) * 12)",
-                } as React.CSSProperties
-            }
-        >
-            <AppSidebar variant="inset" />
-            <SidebarInset className="">
-                <SiteHeader />
-                <div className="flex flex-1 flex-col">
-                    {children}
-                </div>
-            </SidebarInset>
-        </SidebarProvider>
+        <App>
+            <SidebarProvider
+                open={open}
+                onOpenChange={setOpen}
+                className=""
+                style={
+                    {
+                        "--header-height": "calc(var(--spacing) * 12)",
+                    } as React.CSSProperties
+                }
+            >
+                <AppSidebar variant="inset" />
+                <SidebarInset className="">
+                    <SiteHeader />
+                    <div className="flex flex-1 flex-col">
+                        {children}
+                    </div>
+                </SidebarInset>
+            </SidebarProvider>
+        </App>
     )
 }

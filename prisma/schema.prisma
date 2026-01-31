@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+enum DisplayLayout {
+  PORTRAIT  // Dùng cho đồ uống (Dọc)
+  SQUARE    // Dùng cho đồ ăn (Vuông/Tròn)
+}
+model MenuCategory {
+  id        String   @id @default(uuid())
+  name      String
+  color     String?  @default("default") // For UI tag color
+  layoutType  DisplayLayout @default(SQUARE)
+  menus     Menu[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Menu {
+  id          String   @id @default(uuid())
+  name        String
+  price       String   // Storing as string (e.g., "180k") to match current frontend
+  description String?  @db.Text
+  image       String?  @db.LongText // Store multiple images as JSON string
+  categoryId  String
+  category    MenuCategory @relation(fields: [categoryId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([categoryId])
+}
+
+model Event {
+  id          String   @id @default(uuid())
+  name        String
+  date        DateTime
+  poster      String?  @db.Text
+  description String?  @db.Text
+  
+  // New fields for UI synchronization
+  location    String?  @default("Bãi biển chính")
+  price       Int?     @default(0) 
+  startTime   String?  @default("18:00")
+  endTime     String?  @default("22:00")
+  itinerary   Json?    // Storing list of { time, activity } objects
+  timeline    Json?    // Storing complex timeline groups
+  isFeatured  Boolean  @default(false) // Display in featured section
+  isHidden    Boolean  @default(false) // Hide from public page
+  content     String?  @db.LongText    // Rich text content (HTML from TipTap)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  categoryId  String?
+  category    EventCategory? @relation(fields: [categoryId], references: [id])
+}
+
+model EventCategory {
+  id        String   @id @default(uuid())
+  name      String
+  color     String?  @default("default") // For UI tag color
+  events    Event[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Booking {
+  id           String   @id @default(uuid())
+  customerName String
+  phoneNumber  String
+  bookingDate  DateTime
+  guestCount   Int
+  status       String   @default("pending") // pending, confirmed, cancelled
+  
+  // New fields for UI synchronization
+  email        String?
+  area         String?
+  note         String?
+  time         String?  // e.g. "19:30"
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}

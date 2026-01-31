@@ -1,7 +1,29 @@
+"use client";
 import Link from "next/link";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 export default function Home() {
+    const [events, setEvents] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchEvents = async () => {
+            try {
+                const response = await fetch('/api/v1/events');
+                if (response.ok) {
+                    const data = await response.json();
+                    setEvents(data.slice(0, 2)); // Get first 2 events
+                }
+            } catch (error) {
+                console.error("Failed to fetch events:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchEvents();
+    }, []);
+
     return (
         <>
             <section className="relative w-full h-[60vh] min-h-[500px] overflow-hidden flex items-center justify-center">
@@ -202,60 +224,38 @@ export default function Home() {
                             </Link>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div className="bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-slate-200/60 transition-all duration-300 group">
-                                <div
-                                    className="h-60 bg-cover bg-center relative overflow-hidden"
-                                    data-alt="Crowd dancing at a Full Moon Party on the beach with neon lights"
-                                    style={{
-                                        backgroundImage:
-                                            'url("https://lh3.googleusercontent.com/aida-public/AB6AXuC2c-Nu0EDvE5QrwZs55x-9T4shwjB2uDCkpSPCyfwUSGLnLqB277DA5vi0JpIpQujen2S7vpPxAaU3xnnnndO9mu5Jjc8tMJEj8joTh2RTugtnX2t9Kwu3jiVs2I2plUwDfP2aHahIBJ78znh6uv-8B2ysfHaD1dXLTQc-n9r9dYS8pvp_QfE8P0UdTYadAbrp-HZVIt5LKHRfqnXr6U_uRWxr3BDLHZThBpk8ALfrNrtub81w8AdlfJs0PyN0NrYNdTsKhpplSSU")',
-                                    }}
-                                >
-                                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div>
-                                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-slate-900 font-bold text-xs px-3 py-1.5 rounded-full uppercase tracking-wide border border-white">
-                                        24 Tháng 10
-                                    </div>
+                            {loading ? (
+                                <div className="col-span-2 flex justify-center py-10">
+                                    <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-primary"></div>
                                 </div>
-                                <div className="p-8">
-                                    <h3 className="text-slate-900 text-2xl font-bold mb-3 group-hover:text-primary transition-colors">
-                                        Full Moon Party
-                                    </h3>
-                                    <p className="text-slate-500 text-sm mb-6 line-clamp-2 leading-relaxed">
-                                        Đêm tiệc trăng rằm huyền thoại với các màn trình diễn lửa,
-                                        DJ quốc tế và đồ uống miễn phí cho phái nữ.
-                                    </p>
-                                    <button className="w-full py-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:border-primary text-slate-600 hover:text-primary text-sm font-bold transition-all">
-                                        Chi tiết &amp; Đặt vé
-                                    </button>
-                                </div>
-                            </div>
-                            <div className="bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-slate-200/60 transition-all duration-300 group">
-                                <div
-                                    className="h-60 bg-cover bg-center relative overflow-hidden"
-                                    data-alt="Musician playing acoustic guitar on a beach stage at sunset"
-                                    style={{
-                                        backgroundImage:
-                                            'url("https://lh3.googleusercontent.com/aida-public/AB6AXuB9ICrki5HvnnCkCyY3bZ8hFCg7Ze4roHFI8N-b5zfDBhuNlVN87c6CanvzjULUIVEf3o8U9qmcSEDaB0KogsZ_OFlbFBIjLIk0Xk2TEOCFJsc4iA0HcXKPosE39PZV49YzzqHjRP7HGvreTG_-wk_F0dIZYHgFMFr1NT9tLz3Wue6Qrq5TRYfUnQ7_VmuJcU_MP4Q_z6nm6ukt_wUvjmKSYnX6YXwaPs4W6ECNAwDCe0OKEym1OHt5LGRy8CPAuB96eGQ--PWj-lw")',
-                                    }}
-                                >
-                                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div>
-                                    <div className="absolute top-4 left-4 bg-primary text-slate-900 font-bold text-xs px-3 py-1.5 rounded-full uppercase tracking-wide">
-                                        Hàng tuần
-                                    </div>
-                                </div>
-                                <div className="p-8">
-                                    <h3 className="text-slate-900 text-2xl font-bold mb-3 group-hover:text-primary transition-colors">
-                                        Acoustic Sunset
-                                    </h3>
-                                    <p className="text-slate-500 text-sm mb-6 line-clamp-2 leading-relaxed">
-                                        Thả hồn vào những giai điệu acoustic mộc mạc trong khung giờ
-                                        vàng hoàng hôn. Giảm giá 50% cocktail.
-                                    </p>
-                                    <button className="w-full py-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:border-primary text-slate-600 hover:text-primary text-sm font-bold transition-all">
-                                        Xem lịch diễn
-                                    </button>
-                                </div>
-                            </div>
+                            ) : events.length > 0 ? (
+                                events.map(event => (
+                                    <Link key={event.id} href={`/events/${event.id}`} className="bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-slate-200/60 transition-all duration-300 group">
+                                        <div
+                                            className="h-60 bg-cover bg-center relative overflow-hidden"
+                                            style={{ backgroundImage: `url("${event.image}")` }}
+                                        >
+                                            <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div>
+                                            <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-slate-900 font-bold text-xs px-3 py-1.5 rounded-full uppercase tracking-wide border border-white">
+                                                {event.date}
+                                            </div>
+                                        </div>
+                                        <div className="p-8">
+                                            <h3 className="text-slate-900 text-2xl font-bold mb-3 group-hover:text-primary transition-colors line-clamp-1">
+                                                {event.title}
+                                            </h3>
+                                            <p className="text-slate-500 text-sm mb-6 line-clamp-2 leading-relaxed">
+                                                {event.description}
+                                            </p>
+                                            <div className="w-full py-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:border-primary text-slate-600 hover:text-primary text-sm font-bold transition-all text-center">
+                                                Chi tiết &amp; Đặt vé
+                                            </div>
+                                        </div>
+                                    </Link>
+                                ))
+                            ) : (
+                                <div className="col-span-2 text-center text-slate-500 py-10">Chưa có sự kiện nào.</div>
+                            )}
                         </div>
                     </div>
                 </div>

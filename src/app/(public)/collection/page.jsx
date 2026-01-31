@@ -49,21 +49,28 @@ export default function CollectionPage() {
     return (
         <div className="flex flex-col min-h-screen bg-white">
             {/* Dramatic Hero Section */}
-            <section className="relative w-full h-[60vh] min-h-[500px] overflow-hidden flex items-center justify-center">
-                <div
-                    className="absolute inset-0 bg-cover bg-center"
-                    style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuB7ZZbq06yMIJiyptrBKGwGUo3ZT4sHsLVnQ2vDmlZKgQtC9_7tlIVjxOF8HEj3qxfPc83a2-7dx5fcqd_OSEWUhPcrxVxKs0ZrQx1VrKc8ZpzreR6jijNLfcr8fJy_o0LRRg9P2sdO68fGBTwh_CAsMlwRnqEQTxs3SEaGG9N82Yn9jeJ_xi4hDlsgkQblaVQkvPiYs_EwtP6upbC_M72p621wuwGNrCIqnH2zWWK6FFbcS8OrTNFLHhdhpSVGp7Lj5rC8GrxupwE")' }}
-                ></div>
-                <div className="absolute inset-0 bg-black/40 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-
-                <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+            {/* Hero Section */}
+            <div className="px-4 pt-6 md:px-10 lg:px-40 bg-slate-50 flex justify-center">
+                <div className="relative w-full max-w-[1200px] h-[400px] md:h-[500px] rounded-[40px] overflow-hidden shadow-2xl shadow-slate-200">
+                    <img
+                        alt="Airwaves Collection"
+                        className="w-full h-full object-cover transition-transform duration-1000 hover:scale-105"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7ZZbq06yMIJiyptrBKGwGUo3ZT4sHsLVnQ2vDmlZKgQtC9_7tlIVjxOF8HEj3qxfPc83a2-7dx5fcqd_OSEWUhPcrxVxKs0ZrQx1VrKc8ZpzreR6jijNLfcr8fJy_o0LRRg9P2sdO68fGBTwh_CAsMlwRnqEQTxs3SEaGG9N82Yn9jeJ_xi4hDlsgkQblaVQkvPiYs_EwtP6upbC_M72p621wuwGNrCIqnH2zWWK6FFbcS8OrTNFLHhdhpSVGp7Lj5rC8GrxupwE"
+                    />
+                    <div className="absolute inset-0 bg-black/20"></div>
                 </div>
-            </section>
+            </div>
 
             {/* Gallery Grid */}
-            <section className="w-full py-20 bg-slate-50">
-                <div className="px-4 md:px-10 flex flex-1 justify-center">
-                    <div className="layout-content-container flex flex-col max-w-[1400px] flex-1">
+            <section className="w-full py-16 bg-white">
+                <div className="px-4 md:px-10 lg:px-40 flex flex-1 justify-center">
+                    <div className="layout-content-container flex flex-col max-w-[1200px] flex-1">
+
+                        {/* Title Section */}
+                        <div className="text-center mb-12">
+                            <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">Bộ Sưu Tập</h1>
+                            <p className="text-lg text-slate-500 max-w-2xl mx-auto font-medium">Những khoảnh khắc đáng nhớ tại Airwaves Beach Bar.</p>
+                        </div>
                         <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
                             {galleryImages.map((img, index) => (
                                 <div key={index} className="break-inside-avoid relative group rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer">

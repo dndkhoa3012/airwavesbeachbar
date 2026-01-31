@@ -1,6 +1,7 @@
 import Header from '@/components/public/Header';
 import Footer from '@/components/public/Footer';
 import ChatWidget from '@/components/public/ChatWidget';
+import ScrollToTop from '@/components/public/ScrollToTop';
 
 export default function PublicLayout({ children }) {
     return (
@@ -10,6 +11,7 @@ export default function PublicLayout({ children }) {
                 {children}
             </main>
             <Footer />
+            <ScrollToTop />
             <ChatWidget />
         </div>
     );

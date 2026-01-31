@@ -45,7 +45,7 @@ export default function ChatWidget() {
             <FloatButton.Group
                 trigger="click"
                 type="primary"
-                style={{ right: 24, bottom: 24 }}
+                style={{ right: 24, bottom: 90 }}
                 icon={<MessageOutlined />}
             >
                 <FloatButton
@@ -69,7 +69,7 @@ export default function ChatWidget() {
 
             {/* AI Bot Window */}
             {isBotOpen && (
-                <div className="fixed bottom-24 right-6 z-50 w-[320px] sm:w-[380px] h-[500px] bg-white rounded-2xl shadow-2xl border border-slate-100 flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 fade-in duration-300">
+                <div className="fixed bottom-40 right-6 z-50 w-[320px] sm:w-[380px] h-[500px] bg-white rounded-2xl shadow-2xl border border-slate-100 flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 fade-in duration-300">
                     {/* Header */}
                     <div className="bg-slate-900 p-4 flex items-center justify-between text-white">
                         <div className="flex items-center gap-3">
