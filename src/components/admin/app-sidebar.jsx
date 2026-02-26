@@ -50,8 +50,18 @@ const data = {
     },
     {
       title: "Trang chủ",
-      url: "/admin/home",
+      url: "#",
       icon: IconHome,
+      items: [
+        {
+          title: "Menu",
+          url: "#",
+        },
+        {
+          title: "Banner",
+          url: "/admin/home/banner",
+        },
+      ],
     },
     {
       title: "Đặt bàn",
@@ -70,6 +80,10 @@ const data = {
         {
           title: "Danh mục",
           url: "/admin/menu-categories",
+        },
+        {
+          title: "Banner",
+          url: "/admin/menu/banner",
         },
       ],
     },
@@ -92,6 +106,16 @@ const data = {
       title: "Thư viện ảnh",
       url: "#",
       icon: IconPhoto,
+      items: [
+        {
+          title: "Bộ sưu tập",
+          url: "/admin/gallery",
+        },
+        {
+          title: "Danh mục",
+          url: "/admin/gallery-categories",
+        },
+      ],
     },
   ],
   navClouds: [

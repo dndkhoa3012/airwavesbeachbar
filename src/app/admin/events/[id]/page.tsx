@@ -295,21 +295,8 @@ const EditEventPage = () => {
 
                                             <Col span={8}>
                                                 <Card
-                                                    title="Hình ảnh"
                                                     variant="borderless"
                                                     className="shadow-none border border-slate-200 rounded-md h-full"
-                                                    extra={
-                                                        imageUrl.length > 0 && (
-                                                            <Button
-                                                                danger
-                                                                size="small"
-                                                                type="text"
-                                                                onClick={() => setImageUrl([])}
-                                                            >
-                                                                Xoá tất cả
-                                                            </Button>
-                                                        )
-                                                    }
                                                 >
                                                     <ImageUploadGrid
                                                         value={imageUrl}

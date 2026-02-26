@@ -284,7 +284,7 @@ async function main() {
             description: "Thưởng thức nhạc Acoustic nhẹ nhàng trong khung cảnh hoàng hôn lãng mạn trên biển.",
             categoryName: "Live Music",
             location: "Sân Khấu",
-            price: "Miễn phí",
+            price: 0,
             startTime: "18:00",
             endTime: "21:00"
         },
@@ -295,7 +295,7 @@ async function main() {
             description: "Sôi động cùng DJ hàng đầu và những ly cocktail tuyệt hảo.",
             categoryName: "Beach Party",
             location: "Bãi Biển",
-            price: "150.000đ",
+            price: 150000,
             startTime: "19:30",
             endTime: "23:00"
         },
@@ -306,7 +306,7 @@ async function main() {
             description: "Tiệc kỷ niệm ngày cưới riêng tư bên bờ biển.",
             categoryName: "Private Event",
             location: "Pool Bar",
-            price: "Liên hệ",
+            price: null,
             startTime: "17:00",
             endTime: "22:00"
         },
@@ -317,7 +317,7 @@ async function main() {
             description: "Đếm ngược đón năm mới với màn pháo hoa rực rỡ.",
             categoryName: "Special Holiday",
             location: "Bãi Biển Chính",
-            price: "299.000đ",
+            price: 299000,
             startTime: "20:00",
             endTime: "02:00"
         }
