@@ -1,28 +1,34 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import { Tabs } from "antd";
-import { prisma } from "@/lib/prisma";
 import { MenuSection } from "./components/menu-section";
 
-// Server Component (default in App Router)
-export default async function MenuPage() {
-    // Fetch categories with menus
-    const categories = await prisma.menuCategory.findMany({
-        include: {
-            menus: true
-        },
-        orderBy: [
-            { isFeatured: 'desc' },
-            { createdAt: 'asc' }
-        ]
-    });
+export const dynamic = 'force-dynamic';
+
+export default function MenuPage() {
+    const [categories, setCategories] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const response = await fetch('/api/v1/menu-categories');
+                if (response.ok) {
+                    const data = await response.json();
+                    setCategories(data);
+                }
+            } catch (error) {
+                console.error("Failed to fetch menu categories:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchCategories();
+    }, []);
 
     // Filter out empty categories
     const visibleCategories = categories.filter(cat => cat.menus && cat.menus.length > 0);
-
-
-    // helper formatPrice moved to component or duplicated, removing from here if unused
-    // But wait, the page doesn't use formatPrice anymore if MenuSection handles it.
-
 
     // Create "All" tab content
     const allTabContent = (
@@ -54,6 +60,14 @@ export default async function MenuPage() {
         },
         ...categoryTabs
     ];
+
+    if (loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-slate-50">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+            </div>
+        );
+    }
 
     return (
         <div className="w-full bg-slate-50 min-h-screen">

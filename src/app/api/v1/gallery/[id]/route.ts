@@ -35,7 +35,7 @@ export async function PUT(
             data: {
                 src: body.src,
                 alt: body.alt,
-                categoryId: body.categoryId,
+                collectionId: body.collectionId,
             },
         });
 

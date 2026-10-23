@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Airwaves Beach Club
 
-## Getting Started
+Website của Airwaves Beach Club (airwavesbeachclub.com): trang công khai (menu, sự kiện, gallery, đặt bàn) và trang quản trị.
 
-First, run the development server:
+**Stack:** Next.js 16 (App Router), React 19, Prisma + MySQL, Ant Design, CKEditor, Docker.
+
+## Chạy local
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env        # điền DATABASE_URL (MySQL)
+npx prisma migrate dev      # hoặc: npx prisma db push
+npx prisma db seed          # dữ liệu mẫu (tuỳ chọn)
+npm run dev                 # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Cấu trúc
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- `src/app/(public)` – trang công khai
+- `src/app/(auth)` – đăng nhập
+- `src/app/admin` – trang quản trị
+- `src/app/api/v1` – REST API (banners, bookings, events, gallery, menus, ...)
+- `prisma/` – schema, migrations, seed
+- `scripts/` – script bảo trì dữ liệu một lần (`cleanup-data.ts`, `migrate-prices.ts`)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deploy
 
-## Learn More
+Production chạy bằng Docker trên VPS (cổng `3005`), Nginx proxy vào, HTTPS bằng certbot. Các script không chứa thông tin server nào, mọi giá trị truyền qua biến môi trường:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+export VPS_IP=<ip-vps>
+export VPS_USER=<user-ssh>              # mặc định: root
+export DOCKER_IMAGE=<dockerhub-user>/airwavesbeachbar:latest
+./deploy-hub.sh
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `deploy-hub.sh` – **khuyến nghị**: build image (linux/amd64) trên máy dev, push lên Docker Hub, VPS tự pull và khởi động lại. Cần `docker login` trước.
+- `deploy.sh` – phương án dự phòng: nén image thành `.tar.gz` rồi copy qua VPS bằng scp.
+- `setup-domain.sh`, `setup-ssl.sh` – chỉ chạy **một lần** khi cấu hình tên miền / SSL mới (cần thêm `DOMAIN`, `EMAIL`).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Các script copy `docker-compose.yml` và `.env` lên `$VPS_PATH` (mặc định `/var/www/airwavesbeachbar`). `.env` trên VPS cần có `DATABASE_URL` và `DOCKER_IMAGE`.
 
-## Deploy on Vercel
+## Biến môi trường
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Xem `.env.example`. File `.env` không được commit; lấy giá trị thật từ người bàn giao.

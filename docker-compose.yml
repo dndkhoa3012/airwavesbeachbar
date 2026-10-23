@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  airwavesbeachbar:
+    image: ${DOCKER_IMAGE:?Đặt DOCKER_IMAGE trong .env}
+    container_name: airwavesbeachbar
+    restart: always # Tự động khởi động lại khi VPS sập/reboot
+    ports:
+      - "3005:3000"
+    environment:
+      - NODE_ENV=production
+    # If you have environment variables, add them here or map a .env file
+    env_file:
+      - .env
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:3000" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3

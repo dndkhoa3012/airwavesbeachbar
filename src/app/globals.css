@@ -9,8 +9,8 @@
   --color-dark: #0f172a;
   --color-light: #f8fafc;
 
-  --font-display: var(--font-jakarta);
-  --font-body: var(--font-noto);
+  --font-display: var(--font-baskervville);
+  --font-body: var(--font-baskervville);
 
   --radius-lg: 1rem;
   --radius-xl: 1.5rem;

@@ -26,16 +26,18 @@ export default function Home() {
 
     return (
         <>
-            <section className="relative w-full h-[60vh] min-h-[500px] overflow-hidden flex items-center justify-center">
-                <div
-                    className="absolute inset-0 bg-cover bg-center"
-                    style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuANPwTyjbQsQoknQ34V8LK86yJ0mYfmdveyvs3Vybc6MLBFdkMIQpQ3cLUUp2qrLLbVOs0PjvbHFXm4YNg7lbvEg5fv6X2UBPuAdrfHwPS8JJpOCAO7gK4kImsGGgFUasyN24CY4yNKG4K0IHhT5KsDe_goSJuOuaOR2qPiuDIRRaCZJ-zpJ2a8jf3uII6zeOhB8DV79trJDH5v9eBrvqJlm0xR5r0yFpl4syheDdXQ1UXHhv35Ag49mF1gpmXQWknMFhuFUIpoMHU")' }}
-                ></div>
-                <div className="absolute inset-0 bg-black/40 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-
-                <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+            <div className="px-4 pt-6 md:px-10 lg:px-40 bg-white flex justify-center">
+                <div className="relative w-full max-w-[1200px] h-[400px] md:h-[500px] rounded-[40px] overflow-hidden shadow-2xl shadow-slate-200">
+                    <div className="absolute inset-0 z-0">
+                        <img
+                            alt="Airwaves Beach Club Background"
+                            className="w-full h-full object-cover transition-transform duration-1000 hover:scale-105"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuANPwTyjbQsQoknQ34V8LK86yJ0mYfmdveyvs3Vybc6MLBFdkMIQpQ3cLUUp2qrLLbVOs0PjvbHFXm4YNg7lbvEg5fv6X2UBPuAdrfHwPS8JJpOCAO7gK4kImsGGgFUasyN24CY4yNKG4K0IHhT5KsDe_goSJuOuaOR2qPiuDIRRaCZJ-zpJ2a8jf3uII6zeOhB8DV79trJDH5v9eBrvqJlm0xR5r0yFpl4syheDdXQ1UXHhv35Ag49mF1gpmXQWknMFhuFUIpoMHU"
+                        />
+                        <div className="absolute inset-0 bg-black/40 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    </div>
                 </div>
-            </section>
+            </div>
             <section className="w-full py-10 md:py-16 bg-white">
                 <div className="px-4 md:px-10 flex flex-1 justify-center">
                     <div className="layout-content-container flex flex-col max-w-[1200px] flex-1">

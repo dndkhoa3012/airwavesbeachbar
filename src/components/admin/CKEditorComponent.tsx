@@ -18,7 +18,7 @@ export default function CKEditorComponent({
     return (
         <div className="ckeditor-wrapper">
             <CKEditor
-                editor={ClassicEditor}
+                editor={ClassicEditor as any}
                 data={content}
                 config={{
                     placeholder,
